@@ -3,12 +3,15 @@ import "styled-components";
 declare module "styled-components" {
   export interface DefaultTheme {
     color: {
-      purple: "#8661de";
-      blue: "#00bac7";
-      gray: "#f6f6f6";
-      green: "#07b495";
-      lightGreen: "#99ecdd";
-      darkGray: "#54595d";
+      skyBlue: "#55B2D4";
+      yellow: "#FFC900";
+      scarlet: "#EE3E61";
+      red: "##FF0000";
+      darkGray: "#666666";
+      gray: "#999999";
+      default: "#D7DEE2";
+      normalGray: "#DDDDDD";
+      lightGray: "#D9D9D9";
     };
     boxShadow: {
       normal: "0 3px 8px 0 rgb(0 0 0 / 10%)";
