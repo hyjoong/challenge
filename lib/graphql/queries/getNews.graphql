@@ -1,0 +1,6 @@
+query getNews($input: Int) {
+  fetchBoards(page: $input) {
+    number
+    title
+  }
+}

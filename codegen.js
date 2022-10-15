@@ -7,7 +7,7 @@ module.exports = {
 
   documents: "**/*.graphql",
   generates: {
-    "lib/graphql/queries/schema.d.ts": {
+    "lib/graphql/queries/schema.ts": {
       plugins: [
         "typescript",
         "typescript-operations",

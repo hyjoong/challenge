@@ -31,14 +31,19 @@ const StyledProfile = styled.div`
   justify-content: space-between;
   width: 148px;
   padding: 30px;
-  margin-right: 2px;
+  margin-right: 3px;
   border-radius: 10px;
+  border: 1px solid ${({ theme }) => theme.color.gray};
   background-color: ${({ theme }) => theme.color.white};
 `;
 
 const ProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
+
+  > p {
+    margin: 10px 0;
+  }
 `;
 
 const ProfileEmotion = styled.div`
