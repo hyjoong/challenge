@@ -12,9 +12,7 @@
     "eslint": "eslint .",
     "analyze": "ANALYZE=true next build",
     "test": "jest",
-    "generate": "graphql-codegen --require dotenv/config --config codegen.js",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "generate": "graphql-codegen --require dotenv/config --config codegen.js"
   },
   "dependencies": {
     "@apollo/client": "^3.7.0",
@@ -45,12 +43,6 @@
     "@graphql-codegen/typescript-operations": "^2.5.4",
     "@graphql-codegen/typescript-react-apollo": "^3.3.4",
     "@graphql-codegen/typescript-resolvers": "^2.7.4",
-    "@storybook/addon-actions": "^6.4.22",
-    "@storybook/addon-essentials": "^6.4.22",
-    "@storybook/addon-interactions": "^6.4.22",
-    "@storybook/addon-links": "^6.4.22",
-    "@storybook/react": "^6.4.22",
-    "@storybook/testing-library": "^0.0.11",
     "@svgr/webpack": "^5.5.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
