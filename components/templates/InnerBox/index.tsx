@@ -6,12 +6,25 @@ interface Props {
 }
 
 const InnerBox = ({ children }: Props) => {
-  return <Root>{children}</Root>;
+  return (
+    <StyledInnerBox>
+      <Container>{children}</Container>
+    </StyledInnerBox>
+  );
 };
 
-const Root = styled.div`
-  width: 808px;
-  height: 544px;
+const StyledInnerBox = styled.div`
+  display: flex;
+  width: 748px;
+  height: 484px;
+  padding: 30px;
   background-image: url(./image/innerBox.png);
 `;
+
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 44px 12px 10px 6px;
+`;
+
 export default InnerBox;
