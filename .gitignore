@@ -28,5 +28,8 @@ out
 
 .env
 
+# graphql codegen
+schema.ts
+
 node_modules.nosync/
 *.env.*
