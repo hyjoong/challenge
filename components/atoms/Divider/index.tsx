@@ -1,14 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 
-const Divider = () => {
-  return <StyledText></StyledText>;
+interface Props {
+  type?: "line" | "dashed";
+}
+
+const Divider = ({ type = "line" }: Props) => {
+  return <StyledText type={type}></StyledText>;
 };
 
-const StyledText = styled.p`
+const StyledText = styled.p<{ type: string }>`
   width: 100%;
-  margin: 10px 0;
-  border-top: 1px dashed #000000;
+  margin: 3px 0;
+  border-width: 1px 0px 0px 0px;
+  border-style: ${({ type }) => (type === "line" ? "solid" : "dashed")};
+  border-color: ${({ theme }) => theme.color.gray};
 `;
 
 export default Divider;

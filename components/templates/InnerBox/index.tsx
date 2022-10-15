@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Header from "components/molecules/Header";
 
 interface Props {
   children?: React.ReactNode;
@@ -8,6 +9,7 @@ interface Props {
 const InnerBox = ({ children }: Props) => {
   return (
     <StyledInnerBox>
+      <Header />
       <Container>{children}</Container>
     </StyledInnerBox>
   );
@@ -15,6 +17,7 @@ const InnerBox = ({ children }: Props) => {
 
 const StyledInnerBox = styled.div`
   display: flex;
+  flex-direction: column;
   width: 748px;
   height: 484px;
   padding: 30px;
@@ -24,7 +27,8 @@ const StyledInnerBox = styled.div`
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 44px 12px 10px 6px;
+  height: 100%;
+  padding: 0px 12px 10px 6px;
 `;
 
 export default InnerBox;
