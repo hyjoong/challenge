@@ -1,0 +1,32 @@
+# Config
+!config/default.json
+!config/development.json.sample
+config/*.json
+
+# Next
+.next
+out
+
+# Logs
+npm-debug.log*
+coverage
+
+# NPM
+node_modules/
+
+# Transpiled code
+dist
+out
+.out
+
+# Dev tools
+.DS_Store
+.vscode
+.idea
+*.swp
+*.bak
+
+.env
+
+node_modules.nosync/
+*.env.*

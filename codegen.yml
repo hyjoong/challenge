@@ -1,0 +1,10 @@
+schema:
+  - ${NEXT_PUBLIC_GRAPHQL_URI}:
+
+documents: "**/*.graphql"
+generates:
+  lib/graphql/queries/graphql.d.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
