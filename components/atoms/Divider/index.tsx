@@ -9,7 +9,7 @@ const Divider = ({ type = "line" }: Props) => {
   return <StyledText type={type}></StyledText>;
 };
 
-const StyledText = styled.p<{ type: string }>`
+const StyledText = styled.p<Props>`
   width: 100%;
   margin: 3px 0;
   border-width: 1px 0px 0px 0px;
