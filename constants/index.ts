@@ -55,6 +55,6 @@ export const bgmList: BgmType[] = [
 
 export const tabList: TabType[] = [
   { title: "홈", value: "/" },
-  { title: "게임", value: "game" },
-  { title: "다이어리", value: "diary" },
+  { title: "게임", value: "/game" },
+  { title: "다이어리", value: "/diary" },
 ];

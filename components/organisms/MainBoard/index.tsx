@@ -16,110 +16,109 @@ import Input from "components/atoms/Input";
 import Chip from "components/atoms/Chip";
 import Contents from "../Contents";
 
-
 const MainBoard = () => {
-    const DEFAULT_PAGE = 0;
-    const [checkItems, setCheckItems] = useState<string[]>([]);
-  
-    const { data: newsData, loading } = useGetNewsQuery({
-      variables: { input: DEFAULT_PAGE } as GetNewsQueryVariables,
-    }) as GetNewsQueryResult;
-  
-    if (!newsData) {
-      return <div>network Error</div>;
+  const DEFAULT_PAGE = 0;
+  const [checkItems, setCheckItems] = useState<string[]>([]);
+
+  const { data: newsData, loading } = useGetNewsQuery({
+    variables: { input: DEFAULT_PAGE } as GetNewsQueryVariables,
+  }) as GetNewsQueryResult;
+
+  if (!newsData) {
+    return <div>network Error</div>;
+  }
+
+  if (loading) {
+    return <div>loading...</div>;
+  }
+
+  const slicedData = newsData?.fetchBoards?.slice(0, 4);
+
+  const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = event.target;
+    const newArray = [...checkItems];
+    if (checked) {
+      setCheckItems([...newArray, value]);
+    } else if (!checked && checkItems.includes(value)) {
+      setCheckItems(newArray.filter((el) => el !== value));
     }
-  
-    if (loading) {
-      return <div>loading...</div>;
-    }
-  
-    const slicedData = newsData?.fetchBoards?.slice(0, 4);
-  
-    const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { value, checked } = event.target;
-      const newArray = [...checkItems];
-      if (checked) {
-        setCheckItems([...newArray, value]);
-      } else if (!checked && checkItems.includes(value)) {
-        setCheckItems(newArray.filter((el) => el !== value));
-      }
-    };
-  
-    const handleAllCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { checked } = event.target;
-      if (checked) {
-        const newArray = new Array();
-        bgmList.forEach((el) => newArray.push(`${el.song}`));
-        setCheckItems(newArray);
-      } else {
-        setCheckItems([]);
-      }
-    };
-  
-    const handleNewsClick = (id: BoardReturn["number"]) => {};
-  
-    return (
-      <Contents>
-        <ContentBoards>
-          <div>
-            <Title>Update news</Title>
-            <Divider />
-            {newsData?.fetchBoards?.length === 0 ? (
-              <div>new Data undefined</div>
-            ) : (
-              <>
-                {slicedData?.map((news, index) => (
-                  <NewsItem
-                    title={news.title}
-                    id={news.number}
-                    key={index}
-                    onClick={handleNewsClick}
-                  />
-                ))}
-              </>
-            )}
-          </div>
-          <Dashboard>
-            {dashboardList.map((item, index) => (
-              <div className="dashboardItem" key={index}>
-                <Text>{item.title}</Text>
-                <div className="countBox">
-                  <Text isBold={true}>{item.count}</Text>
-                  <div>{item.isNew && <Chip type="new">N</Chip>}</div>
-                </div>
-              </div>
-            ))}
-          </Dashboard>
-        </ContentBoards>
-        <BgmTitle>
-          <Title>추억의 BGM</Title>
-          <Text>TODAY MUSIC</Text>
-        </BgmTitle>
-        <BgmList>
-          <div className="bgmHeader">
-            <Input
-              type="checkbox"
-              checked={bgmList.length === checkItems.length}
-              onChange={handleAllCheck}
-            />
-            <Text>번호</Text>
-            <Text>곡명</Text>
-            <Text>아티스트</Text>
-          </div>
-          {bgmList.map((item, key) => (
-            <Checkbox
-              number={key + 1}
-              onChange={handleCheck}
-              value={item.song}
-              song={item.song}
-              artist={item.artist}
-              checked={checkItems.includes(item.song)}
-            ></Checkbox>
-          ))}
-        </BgmList>
-      </Contents>
-    );
   };
+
+  const handleAllCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked } = event.target;
+    if (checked) {
+      const newArray = new Array();
+      bgmList.forEach((el) => newArray.push(`${el.song}`));
+      setCheckItems(newArray);
+    } else {
+      setCheckItems([]);
+    }
+  };
+
+  const handleNewsClick = (id: BoardReturn["number"]) => {};
+
+  return (
+    <Contents>
+      <ContentBoards>
+        <div>
+          <Title>Update news</Title>
+          <Divider />
+          {newsData?.fetchBoards?.length === 0 ? (
+            <div>new Data undefined</div>
+          ) : (
+            <>
+              {slicedData?.map((news, index) => (
+                <NewsItem
+                  title={news.title}
+                  id={news.number}
+                  key={index}
+                  onClick={handleNewsClick}
+                />
+              ))}
+            </>
+          )}
+        </div>
+        <Dashboard>
+          {dashboardList.map((item, index) => (
+            <div className="dashboardItem" key={index}>
+              <Text>{item.title}</Text>
+              <div className="countBox">
+                <Text isBold={true}>{item.count}</Text>
+                <div>{item.isNew && <Chip type="new">N</Chip>}</div>
+              </div>
+            </div>
+          ))}
+        </Dashboard>
+      </ContentBoards>
+      <BgmTitle>
+        <Title>추억의 BGM</Title>
+        <Text>TODAY MUSIC</Text>
+      </BgmTitle>
+      <BgmList>
+        <div className="bgmHeader">
+          <Input
+            type="checkbox"
+            checked={bgmList.length === checkItems.length}
+            onChange={handleAllCheck}
+          />
+          <Text>번호</Text>
+          <Text>곡명</Text>
+          <Text>아티스트</Text>
+        </div>
+        {bgmList.map((item, key) => (
+          <Checkbox
+            number={key + 1}
+            onChange={handleCheck}
+            value={item.song}
+            song={item.song}
+            artist={item.artist}
+            checked={checkItems.includes(item.song)}
+          ></Checkbox>
+        ))}
+      </BgmList>
+    </Contents>
+  );
+};
 const ContentBoards = styled.div`
   display: flex;
   margin-bottom: 15px;

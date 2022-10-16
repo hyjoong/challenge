@@ -6,7 +6,7 @@ export interface Props {
 }
 
 const Image = ({ name }: Props) => {
-  return <StyledImage src={`./image/${name}.png`} alt="icon" />;
+  return <StyledImage src={`/image/${name}.png`} alt="icon" />;
 };
 
 const StyledImage = styled.img``;

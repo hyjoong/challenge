@@ -13,7 +13,7 @@ const InnerBox = ({ children }: Props) => {
   const router = useRouter();
   const handleTabClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     const { value } = e.target as HTMLButtonElement;
-    router.push(`/${value}`);
+    router.push(`${value}`);
   };
 
   return (
