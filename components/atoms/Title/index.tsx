@@ -11,6 +11,7 @@ const Title = ({ children }: Props) => {
 
 const StyledTitle = styled.p`
   font-size: 15px;
+  height: 20px;
   font-weight: 600;
   color: ${({ theme }) => theme.color.skyBlue};
 `;

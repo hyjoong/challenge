@@ -6,11 +6,13 @@ interface Props {
   children: React.ReactNode;
 }
 
+type ChipType = Pick<Props, "type">;
+
 const Chip = ({ type, children }: Props) => {
   return <StyledChip type={type}>{children}</StyledChip>;
 };
 
-const StyledChip = styled.div<{ type: string }>`
+const StyledChip = styled.div<ChipType>`
   display: flex;
   padding: 2px;
   color: ${({ theme }) => theme.color.white};

@@ -9,6 +9,8 @@ export interface Props
   children: React.ReactNode;
 }
 
+type TabType = Pick<Props, "index" | "isActive">;
+
 const Tab = ({ isActive, onClick, index, value, children }: Props) => {
   return (
     <StyledTab
@@ -22,10 +24,7 @@ const Tab = ({ isActive, onClick, index, value, children }: Props) => {
   );
 };
 
-const StyledTab = styled.button<{
-  index: number;
-  isActive?: boolean;
-}>`
+const StyledTab = styled.button<TabType>`
   position: absolute;
   right: -17.5px;
   display: flex;

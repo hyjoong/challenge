@@ -1,7 +1,7 @@
-import DirayList from "components/organisms/DiaryList";
-import Profile from "components/organisms/Profile";
 import React from "react";
 import InnerBox from "../InnerBox";
+import Profile from "components/organisms/Profile";
+import DirayList from "components/organisms/DiaryList";
 
 const DiaryContainer = () => {
   return (
