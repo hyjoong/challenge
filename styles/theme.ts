@@ -15,7 +15,7 @@ export const theme: DefaultTheme = {
     normalGray: "#DDDDDD",
     lightGray: "#D9D9D9",
     white: "#ffffff",
-    balck: "#000000",
+    black: "#000000",
     softGray: "#eeeeee",
     turquoise: "#0F465E",
   },

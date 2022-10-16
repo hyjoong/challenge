@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
         width: calc(100% - 33px);
         min-height: calc(100vh - 21px);
         padding: 21px 0 0 33px;
-        background-image: url(./image/background.png);
+        background-image: url(/image/background.png);
     }
     button {
         background: none;

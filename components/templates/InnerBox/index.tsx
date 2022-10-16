@@ -42,7 +42,7 @@ const StyledInnerBox = styled.div`
   width: 748px;
   height: 484px;
   padding: 30px;
-  background-image: url(./image/innerBox.png);
+  background-image: url(/image/innerBox.png);
 `;
 
 const Container = styled.div`
