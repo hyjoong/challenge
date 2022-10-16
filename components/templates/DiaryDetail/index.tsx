@@ -1,13 +1,14 @@
 import React from "react";
 import InnerBox from "../InnerBox";
 import Profile from "components/organisms/Profile";
-import DiaryBoard from "components/organisms/DiaryBoard";
+import DiaryBoardContainer from "components/organisms/DiaryBoardContainer";
+import { DiaryDetailProps } from "types";
 
-const DiaryDetail = () => {
+const DiaryDetail = ({ id }: DiaryDetailProps) => {
   return (
     <InnerBox>
       <Profile />
-      <DiaryBoard />
+      <DiaryBoardContainer id={id} />
     </InnerBox>
   );
 };

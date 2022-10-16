@@ -1,0 +1,8 @@
+query getBoard($number: Int) {
+  fetchBoard(number: $number) {
+    number 
+    title
+    contents
+    createdAt
+  }
+}

@@ -1,3 +1,7 @@
+export interface DiaryDetailProps {
+  id: string;
+}
+
 export interface ContactType {
   name: string;
   text: string;
