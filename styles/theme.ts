@@ -3,6 +3,7 @@ import { DefaultTheme } from "styled-components";
 export const theme: DefaultTheme = {
   color: {
     skyBlue: "#55B2D4",
+    darkSkyBlue: "#298EB5",
     yellow: "#FFC900",
     scarlet: "#EE3E61",
     red: "#FF0000",
