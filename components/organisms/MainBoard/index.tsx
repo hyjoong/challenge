@@ -109,9 +109,10 @@ const MainBoard = () => {
           <Text>곡명</Text>
           <Text>아티스트</Text>
         </div>
-        {bgmList.map((item, key) => (
+        {bgmList.map((item, index) => (
           <Checkbox
-            number={key + 1}
+            key={index}
+            number={index + 1}
             onChange={handleCheck}
             value={item.song}
             song={item.song}
