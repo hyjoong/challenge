@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Button from "components/atoms/Button";
 import Divider from "components/atoms/Divider";
 import Title from "components/atoms/Title";
-import DiaryPost from "components/molecules/DiaryBoard/inedx";
+import DiaryBoard from "components/molecules/DiaryBoard/inedx";
 import Contents from "../Contents";
 import { DiaryDetailProps } from "types";
 
@@ -28,7 +28,7 @@ const DiaryBoardContainer = ({ id }: DiaryDetailProps) => {
       <StyledDiaryBoard>
         <Title>Diary</Title>
         <Divider />
-        <DiaryPost id={id} />
+        <DiaryBoard id={id} />
         <ButtonContainer>
           <Button styleType="gray" onClick={handleEditBoard}>
             수정하기

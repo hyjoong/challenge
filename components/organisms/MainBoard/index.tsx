@@ -13,7 +13,7 @@ import Divider from "components/atoms/Divider";
 import Text from "components/atoms/Text";
 import { bgmList, dashboardList } from "constants/index";
 import Checkbox from "components/molecules/Checkbox";
-import Input from "components/atoms/Input";
+import CheckboxInput from "components/atoms/CheckboxInput";
 import Chip from "components/atoms/Chip";
 import Contents from "../Contents";
 
@@ -100,7 +100,7 @@ const MainBoard = () => {
       </BgmTitle>
       <BgmList>
         <div className="bgmHeader">
-          <Input
+          <CheckboxInput
             type="checkbox"
             checked={bgmList.length === checkItems.length}
             onChange={handleAllCheck}

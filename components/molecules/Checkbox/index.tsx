@@ -1,6 +1,6 @@
 import React, { InputHTMLAttributes } from "react";
 import styled from "styled-components";
-import Input from "components/atoms/Input";
+import CheckboxInput from "components/atoms/CheckboxInput";
 import Label from "components/atoms/Label";
 import Text from "components/atoms/Text";
 
@@ -14,7 +14,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 const Checkbox = ({ number, song, artist, checked, ...props }: Props) => {
   return (
     <StyledCheckbox>
-      <Input type={"checkbox"} id={song} checked={checked} {...props} />
+      <CheckboxInput type="checkbox" id={song} checked={checked} {...props} />
       <Label htmlFor={song}>
         <Text>{number}</Text>
         <Text>{song}</Text>

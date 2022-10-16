@@ -9,7 +9,7 @@ import Text from "components/atoms/Text";
 import { DateConvert } from "utils/DateConvert";
 import { DiaryDetailProps } from "types";
 
-const DiaryPost = ({ id }: DiaryDetailProps) => {
+const DiaryBoard = ({ id }: DiaryDetailProps) => {
   const { data: boardData } = useGetBoardQuery({
     variables: { number: Number(id) } as GetBoardQueryVariables,
   }) as GetBoardQueryResult;
@@ -59,4 +59,4 @@ const BoardDate = styled.div`
   background-color: ${({ theme }) => theme.color.normalGray};
 `;
 
-export default DiaryPost;
+export default DiaryBoard;
