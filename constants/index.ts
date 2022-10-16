@@ -1,4 +1,4 @@
-import { ContactType } from "types";
+import { BgmType, DashboardType, ContactType, TabType } from "types/index";
 
 export const contactList: ContactType[] = [
   { name: "face", text: "이름" },
@@ -9,7 +9,7 @@ export const contactList: ContactType[] = [
 
 export const emotionList: string[] = ["기쁨 😍", "우울 😂", "졸림 😴"];
 
-export const dashboardList = [
+export const dashboardList: DashboardType[] = [
   {
     title: "다이어리",
     count: "0/65",
@@ -40,7 +40,7 @@ export const dashboardList = [
   },
 ];
 
-export const bgmList = [
+export const bgmList: BgmType[] = [
   { song: "After LIKE", artist: "IVE (아이브)" },
   { song: "사랑스러워", artist: "김종국" },
   { song: "Attention", artist: "NewJeans" },
@@ -51,4 +51,10 @@ export const bgmList = [
   { song: "FOREVER 1", artist: "소녀시대" },
   { song: "그때 그 순간 그대로", artist: "WSG워너비" },
   { song: "애인있어요", artist: "이은미" },
+];
+
+export const tabList: TabType[] = [
+  { title: "홈", value: "/" },
+  { title: "게임", value: "game" },
+  { title: "다이어리", value: "diary" },
 ];
