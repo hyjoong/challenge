@@ -1,0 +1,7 @@
+query getDiarys($input: Int) {
+  fetchBoards(page: $input) {
+    number
+    title
+    createdAt
+  }
+}
