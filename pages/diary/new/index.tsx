@@ -1,7 +1,8 @@
 import React from "react";
+import DiaryNewContainer from "components/templates/DiaryNewContainer";
 
 const New = () => {
-  return <div>New Page</div>;
+  return <DiaryNewContainer />;
 };
 
 export default New;
