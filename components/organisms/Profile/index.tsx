@@ -13,7 +13,7 @@ const Profile = () => {
       <ProfileInfo>
         <Image name="profile" />
         <Divider />
-        {contactList.map((item, index) => (
+        {contactList?.map((item, index) => (
           <ContactItem name={item.name} text={item.text} key={index} />
         ))}
       </ProfileInfo>

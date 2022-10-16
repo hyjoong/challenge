@@ -15,6 +15,7 @@ const StyledText = styled.p<{ type: string }>`
   border-width: 1px 0px 0px 0px;
   border-style: ${({ type }) => (type === "line" ? "solid" : "dashed")};
   border-color: ${({ theme }) => theme.color.gray};
+  color: ${({ theme }) => theme.color.gray};
 `;
 
 export default Divider;

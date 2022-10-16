@@ -16,7 +16,7 @@ const StyledChip = styled.div<{ type: string }>`
   color: ${({ theme }) => theme.color.white};
   font-size: 7px;
   border-radius: 1px;
-  ${({ theme, type }) =>
+  ${({ type }) =>
     (type === "diary" &&
       css`
         background-color: ${({ theme }) => theme.color.scarlet};
