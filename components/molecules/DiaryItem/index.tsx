@@ -21,7 +21,7 @@ const DiaryItem = ({ title, number, createdAt, onClick }: Props) => {
         <Text isBold={true}>제목 : {title}</Text>
       </ItemTitle>
       <LinkButton value={number} onClick={() => onClick(number)}>
-        <Text>자세히 보러가기 {">"} </Text>
+        자세히 보러가기 {">"}
       </LinkButton>
     </StyledDiaryItem>
   );
@@ -61,6 +61,7 @@ const LinkButton = styled.button`
   text-decoration: underline;
   color: ${({ theme }) => theme.color.gray};
   cursor: pointer;
+
   :hover {
     color: ${({ theme }) => theme.color.black};
   }

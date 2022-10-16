@@ -1,15 +1,15 @@
 import React from "react";
 import InnerBox from "../InnerBox";
 import Profile from "components/organisms/Profile";
-import DirayList from "components/organisms/DiaryList";
+import DiaryBoard from "components/organisms/DiaryBoard";
 
-const DiaryContainer = () => {
+const DiaryDetail = () => {
   return (
     <InnerBox>
       <Profile />
-      <DirayList />
+      <DiaryBoard />
     </InnerBox>
   );
 };
 
-export default DiaryContainer;
+export default DiaryDetail;
