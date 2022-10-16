@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import Divider from "components/atoms/Divider";
 import Text from "components/atoms/Text";
 import Title from "components/atoms/Title";
+import Button from "components/atoms/Button";
 import DiaryItem from "components/molecules/DiaryItem";
 import Contents from "../Contents/index";
 
@@ -23,16 +24,24 @@ const DirayList = () => {
   }
   const slicedData = diarysData?.fetchBoards?.slice(0, 5);
 
+  const handleCreateDiary = () => {
+    router.push(`/diary/new`);
+  };
+
   const handleDiaryClick = (id: number) => {
     router.push(`/diary/${id}`);
   };
+
   return (
     <Contents>
       <StyledDiaryList>
-        <DiaryTitle>
-          <Title>Diary</Title>
-          <Text>TODAY STORY</Text>
-        </DiaryTitle>
+        <DiaryHeader>
+          <DiaryTitle>
+            <Title>Diary</Title>
+            <Text>TODAY STORY</Text>
+          </DiaryTitle>
+          <Button onClick={handleCreateDiary}>다이어리 작성</Button>
+        </DiaryHeader>
         <Divider />
         {slicedData?.map((item, index) => (
           <DiaryItem
@@ -57,14 +66,17 @@ const StyledDiaryList = styled.div`
   }
 `;
 
+const DiaryHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const DiaryTitle = styled.div`
   display: flex;
-  align-items: bottom;
-
   p {
     :nth-child(2) {
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       font-size: 8px;
       margin-left: 5px;
     }

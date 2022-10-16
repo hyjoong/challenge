@@ -6,6 +6,7 @@ import {
   GetNewsQueryVariables,
   useGetNewsQuery,
 } from "lib/graphql/queries/schema";
+import { useRouter } from "next/router";
 import NewsItem from "components/molecules/NewsItem";
 import Title from "components/atoms/Title";
 import Divider from "components/atoms/Divider";
@@ -17,6 +18,7 @@ import Chip from "components/atoms/Chip";
 import Contents from "../Contents";
 
 const MainBoard = () => {
+  const router = useRouter();
   const DEFAULT_PAGE = 0;
   const [checkItems, setCheckItems] = useState<string[]>([]);
 
@@ -55,7 +57,9 @@ const MainBoard = () => {
     }
   };
 
-  const handleNewsClick = (id: BoardReturn["number"]) => {};
+  const handleNewsClick = (id: BoardReturn["number"]) => {
+    router.push(`/diary/${id}`);
+  };
 
   return (
     <Contents>
