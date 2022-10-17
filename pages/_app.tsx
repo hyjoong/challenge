@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title></title>
+        <link rel="icon" href="image/favicon.ico" />
       </Head>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
