@@ -3,12 +3,26 @@ import styled from "styled-components";
 import Input from "components/atoms/Input";
 import TextArea from "components/atoms/TextArea";
 
-const DiaryPostBoard = () => {
+interface Props {
+  handleChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+}
+
+const DiaryPostBoard = ({ handleChange }: Props) => {
   return (
     <StyledDiaryPostBoard>
       <PostBoardWrapper>
-        <Input placeholder="제목을 입력해 주세요" />
-        <TextArea placeholder="내용을 입력해 주세요" />
+        <Input
+          placeholder="제목을 입력해 주세요"
+          name="title"
+          onChange={handleChange}
+        />
+        <TextArea
+          placeholder="내용을 입력해 주세요"
+          name="contents"
+          onChange={handleChange}
+        />
       </PostBoardWrapper>
     </StyledDiaryPostBoard>
   );
