@@ -1,0 +1,16 @@
+mutation updateeBoard(
+  $number: Int
+  $writer: String
+  $title: String
+  $contents: String
+) {
+  updateBoard(
+    number: $number
+    writer: $writer
+    title: $title
+    contents: $contents
+  ) {
+    message
+    number
+  }
+}

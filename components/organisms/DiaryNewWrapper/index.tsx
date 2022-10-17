@@ -10,27 +10,26 @@ import { defaultWritter } from "constants/index";
 
 interface Props {
   useLazyQuery: Function;
-  isEdit?: boolean;
-  number?: number;
+  id?: string;
 }
 
-const DiaryNewWrapper = ({ useLazyQuery, isEdit = false, number }: Props) => {
+const DiaryNewWrapper = ({ useLazyQuery, id }: Props) => {
   // 수정하기 or 게시글 등록 mutation
   const [mutationQuery] = useLazyQuery();
 
   const [title, setTitle] = useState<string>("");
   const [contents, setContents] = useState<string>("");
   const router = useRouter();
-
+  console.log("11", id);
   // 수정하기 or 게시글 등록에 따라 variables에 number 유뮤 다름
   // 임시로 아래처럼 하드코딩 했지만 추후 코드개선 하기
-  const FetchingVariables = isEdit
+  const FetchingVariables = id
     ? {
         variables: {
           writer: defaultWritter,
           title,
           contents,
-          number,
+          number: Number(id),
         },
       }
     : {
@@ -80,10 +79,14 @@ const DiaryNewWrapper = ({ useLazyQuery, isEdit = false, number }: Props) => {
       <StyledNewWrapper>
         <Title>Diary | 글 등록</Title>
         <Divider />
-        <DiaryPostBoard handleChange={handleChange} />
+        <DiaryPostBoard
+          title={title}
+          contents={contents}
+          handleChange={handleChange}
+        />
         <ButtonContainer>
           <Button styleType="gray" onClick={handleApply}>
-            {isEdit ? "수정" : "등록"}하기
+            {id ? "수정" : "등록"}하기
           </Button>
           <Button styleType="gray" onClick={handleCancel}>
             취소하기
