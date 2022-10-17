@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import {
-  CreateBoardMutationResult,
-  CreateBoardMutationVariables,
-  useCreateBoardMutation,
-} from "lib/graphql/queries/schema";
 import Divider from "components/atoms/Divider";
 import Title from "components/atoms/Title";
 import Button from "components/atoms/Button";
@@ -14,14 +9,37 @@ import Contents from "../Contents";
 import { defaultWritter } from "constants/index";
 
 interface Props {
+  useLazyQuery: Function;
   isEdit?: boolean;
+  number?: number;
 }
 
-const DiaryNewWrapper = () => {
-  const [createDiary] = useCreateBoardMutation();
+const DiaryNewWrapper = ({ useLazyQuery, isEdit = false, number }: Props) => {
+  // 수정하기 or 게시글 등록 mutation
+  const [mutationQuery] = useLazyQuery();
+
   const [title, setTitle] = useState<string>("");
   const [contents, setContents] = useState<string>("");
   const router = useRouter();
+
+  // 수정하기 or 게시글 등록에 따라 variables에 number 유뮤 다름
+  // 임시로 아래처럼 하드코딩 했지만 추후 코드개선 하기
+  const FetchingVariables = isEdit
+    ? {
+        variables: {
+          writer: defaultWritter,
+          title,
+          contents,
+          number,
+        },
+      }
+    : {
+        variables: {
+          writer: defaultWritter,
+          title,
+          contents,
+        },
+      };
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -45,13 +63,7 @@ const DiaryNewWrapper = () => {
       return;
     }
 
-    const res = (await createDiary({
-      variables: {
-        writer: defaultWritter,
-        title,
-        contents,
-      } as CreateBoardMutationVariables,
-    })) as CreateBoardMutationResult;
+    const res = await mutationQuery(FetchingVariables);
     if (res == null) {
       throw new Error("post registration error");
     }
@@ -71,7 +83,7 @@ const DiaryNewWrapper = () => {
         <DiaryPostBoard handleChange={handleChange} />
         <ButtonContainer>
           <Button styleType="gray" onClick={handleApply}>
-            등록하기
+            {isEdit ? "수정" : "등록"}하기
           </Button>
           <Button styleType="gray" onClick={handleCancel}>
             취소하기

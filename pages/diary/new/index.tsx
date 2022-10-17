@@ -1,8 +1,8 @@
 import React from "react";
-import DiaryNewContainer from "components/templates/DiaryNewContainer";
+import DiaryPostContainer from "components/templates/DiaryPostContainer";
 
 const New = () => {
-  return <DiaryNewContainer />;
+  return <DiaryPostContainer />;
 };
 
 export default New;
