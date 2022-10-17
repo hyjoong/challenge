@@ -42,14 +42,6 @@ const ItemTitle = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  > div {
-    width: 52px;
-    font-size: 10px;
-    font-weight: 600;
-    border-radius: 3px;
-    padding: 2px;
-  }
-
   > p {
     color: ${({ theme }) => theme.color.gray};
   }

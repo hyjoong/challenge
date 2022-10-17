@@ -25,13 +25,18 @@ const StyledChip = styled.div<ChipType>`
       `) ||
     (type === "date" &&
       css`
+        width: 52px;
+        font-size: 10px;
+        font-weight: 600;
+        border-radius: 3px;
+        padding: 3px;
         background-color: ${({ theme }) => theme.color.skyBlue};
       `) ||
     (type === "new" &&
       css`
         background-color: ${({ theme }) => theme.color.orange};
         border-radius: 2px;
-        padding: 1px 2px;
+        padding: 0.5px 2px;
         font-weight: 600;
       `)};
 `;
