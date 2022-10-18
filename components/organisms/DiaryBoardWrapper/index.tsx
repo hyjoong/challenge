@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
+import { useDeleteBoardMutation } from "lib/graphql/queries/schema";
+
 import Button from "components/atoms/Button";
 import Divider from "components/atoms/Divider";
 import Title from "components/atoms/Title";
@@ -10,13 +12,24 @@ import { DiaryDetailProps } from "types";
 
 const DiaryBoardContainer = ({ id }: DiaryDetailProps) => {
   const router = useRouter();
+  const [deleteBoard] = useDeleteBoardMutation();
 
   const handleEditBoard = () => {
     router.push(`/diary/${id}/edit`);
   };
 
-  const handleDeleteBoard = () => {
-    // 취소 로직 성공 하면 다이어리 리스토로
+  const handleDeleteBoard = async () => {
+    const res = await deleteBoard({
+      variables: { number: Number(id) },
+    });
+
+    const { data } = res;
+    if (!data) {
+      // throw new Error('post deletion failed')
+      alert("데이터 삭제에 실패하였습니다.");
+      return;
+    }
+    alert(data.deleteBoard?.message);
     router.push(`/diary`);
   };
   const handleDiaryList = () => {
