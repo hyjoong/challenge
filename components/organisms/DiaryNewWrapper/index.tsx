@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import Divider from "components/atoms/Divider";
@@ -11,16 +11,23 @@ import { defaultWritter } from "constants/index";
 interface Props {
   useLazyQuery: Function;
   id?: string;
+  editTitle?: string;
+  editContents?: string;
 }
 
-const DiaryNewWrapper = ({ useLazyQuery, id }: Props) => {
+const DiaryNewWrapper = ({
+  useLazyQuery,
+  id,
+  editTitle,
+  editContents,
+}: Props) => {
   // 수정하기 or 게시글 등록 mutation
   const [mutationQuery] = useLazyQuery();
 
   const [title, setTitle] = useState<string>("");
   const [contents, setContents] = useState<string>("");
   const router = useRouter();
-  console.log("11", id);
+
   // 수정하기 or 게시글 등록에 따라 variables에 number 유뮤 다름
   // 임시로 아래처럼 하드코딩 했지만 추후 코드개선 하기
   const FetchingVariables = id
@@ -66,13 +73,29 @@ const DiaryNewWrapper = ({ useLazyQuery, id }: Props) => {
     if (res == null) {
       throw new Error("post registration error");
     }
-    alert(res?.data?.createBoard?.message);
 
-    router.push(`/diary/${res?.data?.createBoard?.number}`);
+    // id가 있으면 게시글 수정페이지
+    const alertMessage = id
+      ? res?.data?.updateBoard?.message
+      : res?.data?.createBoard?.message;
+    alert(alertMessage);
+
+    const resNumber = id
+      ? res?.data?.updateBoard?.number
+      : res?.data?.createBoard?.number;
+
+    router.push(`/diary/${resNumber}`);
   };
   const handleCancel = () => {
     router.push(`/diary`);
   };
+
+  useEffect(() => {
+    if (editTitle || editContents) {
+      setTitle(editTitle);
+      setContents(editContents);
+    }
+  }, [editTitle, editContents]);
 
   return (
     <Contents>

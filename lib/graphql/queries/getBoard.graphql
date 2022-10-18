@@ -6,3 +6,10 @@ query getBoard($number: Int) {
     createdAt
   }
 }
+
+query getEditBoard($number: Int) {
+  fetchBoard(number: $number) {
+    title
+    contents 
+  }
+}

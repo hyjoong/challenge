@@ -25,7 +25,7 @@ const StyledChip = styled.div<ChipType>`
       `) ||
     (type === "date" &&
       css`
-        width: 52px;
+        width: 59px;
         font-size: 10px;
         font-weight: 600;
         border-radius: 3px;
