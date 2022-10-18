@@ -1,4 +1,4 @@
-mutation updateeBoard(
+mutation updateBoard(
   $number: Int
   $writer: String
   $title: String
