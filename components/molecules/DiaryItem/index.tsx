@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Chip from "components/atoms/Chip";
 import Text from "components/atoms/Text";
-import { DateConvert } from "utils/DateConvert";
+import useDate from "hooks/useDate";
 
 interface Props {
   title: string;
@@ -12,13 +12,18 @@ interface Props {
 }
 
 const DiaryItem = ({ title, number, createdAt, onClick }: Props) => {
-  const convertDate = DateConvert(createdAt);
+  const { dateConvert } = useDate();
+  const convertDate = dateConvert(createdAt);
 
   return (
     <StyledDiaryItem>
       <ItemTitle>
-        <Chip type="date">{convertDate}</Chip>
-        <Text isBold={true}>제목 : {title}</Text>
+        <FlexBox>
+          <Chip type="date">{convertDate}</Chip>
+        </FlexBox>
+        <FlexBox>
+          <Text isBold={true}>제목 : {title}</Text>
+        </FlexBox>
       </ItemTitle>
       <LinkButton value={number} onClick={() => onClick(number)}>
         자세히 보러가기 {">"}
@@ -45,6 +50,10 @@ const ItemTitle = styled.div`
   > p {
     color: ${({ theme }) => theme.color.gray};
   }
+`;
+
+const FlexBox = styled.div`
+  display: flex;
 `;
 
 const LinkButton = styled.button`
