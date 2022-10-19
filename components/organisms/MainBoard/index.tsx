@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import {
   BoardReturn,
-  GetNewsQueryResult,
-  GetNewsQueryVariables,
-  useGetNewsQuery,
+  GetDiarysQueryResult,
+  GetDiarysQueryVariables,
+  useGetBoardsCountQuery,
+  useGetDiarysQuery,
 } from "lib/graphql/queries/schema";
 import { useRouter } from "next/router";
 import NewsItem from "components/molecules/NewsItem";
@@ -16,15 +17,19 @@ import Checkbox from "components/molecules/Checkbox";
 import CheckboxInput from "components/atoms/CheckboxInput";
 import Chip from "components/atoms/Chip";
 import Contents from "../Contents";
+import useDate from "hooks/useDate";
 
 const MainBoard = () => {
   const router = useRouter();
   const DEFAULT_PAGE = 0;
   const [checkItems, setCheckItems] = useState<string[]>([]);
 
-  const { data: newsData, loading } = useGetNewsQuery({
-    variables: { input: DEFAULT_PAGE } as GetNewsQueryVariables,
-  }) as GetNewsQueryResult;
+  const { data: newsData, loading } = useGetDiarysQuery({
+    variables: { input: DEFAULT_PAGE } as GetDiarysQueryVariables,
+  }) as GetDiarysQueryResult;
+
+  const { newDateCount } = useDate();
+  const { data: boardsCount } = useGetBoardsCountQuery();
 
   if (!newsData) {
     return <div>network Error</div>;
@@ -33,7 +38,10 @@ const MainBoard = () => {
   if (loading) {
     return <div>loading...</div>;
   }
-
+  // if (!newsData?.fetchBoards) return <div>no</div>;
+  const newDiaryCount = newDateCount(newsData?.fetchBoards);
+  console.log("하잉", newDiaryCount);
+  const isDiaryNew = newDiaryCount > 0;
   const slicedData = newsData?.fetchBoards?.slice(0, 4);
 
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,6 +69,10 @@ const MainBoard = () => {
     router.push(`/diary/${id}`);
   };
 
+  const handleDiaryPage = () => {
+    router.push("/diary");
+  };
+
   return (
     <Contents>
       <ContentBoards>
@@ -83,12 +95,22 @@ const MainBoard = () => {
           )}
         </div>
         <Dashboard>
+          <button onClick={handleDiaryPage}>
+            <div className="dashboardItem">
+              <Text>다이어리</Text>
+              <div className="countBox">
+                <Text isBold={true}>
+                  {newDiaryCount}/{boardsCount?.fetchBoardsCount}
+                </Text>
+                <div>{isDiaryNew && <Chip type="new">N</Chip>}</div>
+              </div>
+            </div>
+          </button>
           {dashboardList.map((item, index) => (
             <div className="dashboardItem" key={index}>
               <Text>{item.title}</Text>
               <div className="countBox">
                 <Text isBold={true}>{item.count}</Text>
-                <div>{item.isNew && <Chip type="new">N</Chip>}</div>
               </div>
             </div>
           ))}

@@ -6,12 +6,16 @@ import {
   useGetBoardQuery,
 } from "lib/graphql/queries/schema";
 import Text from "components/atoms/Text";
-import { DateConvert } from "utils/DateConvert";
 import { DiaryDetailProps } from "types";
+import useDate from "hooks/useDate";
 
 const DiaryBoard = ({ id }: DiaryDetailProps) => {
+  const { dateConvert } = useDate();
   const { data: boardData } = useGetBoardQuery({
-    variables: { number: Number(id) } as GetBoardQueryVariables,
+    variables: {
+      number: Number(id),
+      fetchPolicy: "network-only",
+    } as GetBoardQueryVariables,
   }) as GetBoardQueryResult;
 
   if (!boardData) {
@@ -20,7 +24,7 @@ const DiaryBoard = ({ id }: DiaryDetailProps) => {
 
   return (
     <StyledDiaryPost>
-      <BoardDate>{DateConvert(boardData.fetchBoard?.createdAt)}</BoardDate>
+      <BoardDate>{dateConvert(boardData.fetchBoard?.createdAt)}</BoardDate>
       <Text isBold={true}>{boardData.fetchBoard?.title} </Text>
       <Text>{boardData.fetchBoard?.contents}</Text>
     </StyledDiaryPost>
