@@ -11,11 +11,6 @@ export const emotionList: string[] = ["기쁨 😍", "우울 😂", "졸림 😴
 
 export const dashboardList: DashboardType[] = [
   {
-    title: "다이어리",
-    count: "0/65",
-    isNew: false,
-  },
-  {
     title: "사진첩",
     count: "0/265",
     isNew: false,

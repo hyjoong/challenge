@@ -21,3 +21,12 @@ export interface TabType {
   title: string;
   value: string;
 }
+
+export interface DiaryType {
+  createdAt: string;
+  number?: number;
+  writer?: string;
+  title?: string;
+  contents?: string;
+  like?: string;
+}

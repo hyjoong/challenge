@@ -62,6 +62,7 @@ const MainHeader = styled.div`
 
 const SettingText = styled.div`
   display: flex;
+  align-items: flex-end;
   cursor: pointer;
 
   &:hover {
