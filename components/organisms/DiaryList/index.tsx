@@ -16,6 +16,7 @@ import Contents from "../Contents/index";
 import Pagination from "components/molecules/Pagination";
 
 const DirayList = () => {
+  const SIZE = 10;
   const router = useRouter();
   const [page, setPage] = useState<number>(1);
 
@@ -47,7 +48,7 @@ const DirayList = () => {
   };
 
   const isEndPage =
-    (boardsCount?.fetchBoardsCount as number) - ((page - 1) * 10 + 10) <= 0;
+    (boardsCount?.fetchBoardsCount as number) - ((page - 1) * SIZE + SIZE) <= 0;
 
   useEffect(() => {
     refetch();
