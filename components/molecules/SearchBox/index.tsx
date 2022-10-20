@@ -3,11 +3,21 @@ import styled from "styled-components";
 import Button from "components/atoms/Button";
 import Input from "components/atoms/Input";
 
-const SearchBox = () => {
+interface Props {
+  wordInput: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClick: () => void;
+}
+
+const SearchBox = ({ onChange, onClick, wordInput }: Props) => {
   return (
     <StyledSearchBox>
-      <Input />
-      <Button>검색</Button>
+      <Input
+        placeholder="단어를 입력하세요."
+        onChange={onChange}
+        value={wordInput}
+      />
+      <Button onClick={onClick}>검색</Button>
     </StyledSearchBox>
   );
 };
@@ -18,7 +28,7 @@ const StyledSearchBox = styled.div`
 
   input {
     border-radius: 5px;
-    width: 65%;
+    width: 68%;
   }
 `;
 

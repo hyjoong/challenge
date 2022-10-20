@@ -16,6 +16,8 @@ const InnerBox = ({ children }: Props) => {
     router.push(`${value}`);
   };
 
+  const path = `/${router.pathname.split("/").splice(1, 1)[0]}`;
+
   return (
     <StyledInnerBox>
       <Header />
@@ -26,7 +28,7 @@ const InnerBox = ({ children }: Props) => {
           index={key}
           value={tab.value}
           onClick={handleTabClick}
-          isActive={router.pathname === tab.value}
+          isActive={path === tab.value}
         >
           {tab.title}
         </Tab>
