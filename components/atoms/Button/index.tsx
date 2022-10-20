@@ -64,6 +64,11 @@ const StyledButton = styled.button<ButtonType>`
         :hover {
           color: ${({ theme }) => theme.color.darkGray};
         }
+      `) ||
+    (styleType === "arrow" &&
+      css`
+        border: none;
+        color: ${(props) => props.disabled && "#e2e2e2"};
       `)};
 `;
 
