@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import {
   GetDiarysQueryResult,
@@ -15,13 +15,10 @@ import Contents from "../Contents/index";
 
 const DirayList = () => {
   const router = useRouter();
-  const { data: diarysData } = useGetDiarysQuery({
+  const { data: diarysData, refetch } = useGetDiarysQuery({
     variables: { input: 0 } as GetDiarysQueryVariables,
   }) as GetDiarysQueryResult;
 
-  if (!diarysData) {
-    return <div>network Error</div>;
-  }
   const slicedData = diarysData?.fetchBoards?.slice(0, 5);
 
   const handleCreateDiary = () => {
@@ -31,6 +28,10 @@ const DirayList = () => {
   const handleDiaryClick = (id: number) => {
     router.push(`/diary/${id}`);
   };
+
+  useEffect(() => {
+    refetch();
+  }, [router]);
 
   return (
     <Contents>

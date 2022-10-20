@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   BoardReturn,
@@ -24,23 +24,25 @@ const MainBoard = () => {
   const DEFAULT_PAGE = 0;
   const [checkItems, setCheckItems] = useState<string[]>([]);
 
-  const { data: newsData, loading } = useGetDiarysQuery({
+  useEffect(() => {
+    refetchNewsData();
+    refetchBoardsCount();
+  }, [router]);
+
+  const { data: newsData, refetch: refetchNewsData } = useGetDiarysQuery({
     variables: { input: DEFAULT_PAGE } as GetDiarysQueryVariables,
   }) as GetDiarysQueryResult;
 
   const { newDateCount } = useDate();
-  const { data: boardsCount } = useGetBoardsCountQuery();
+  const { data: boardsCount, refetch: refetchBoardsCount } =
+    useGetBoardsCountQuery();
 
-  if (!newsData) {
-    return <div>network Error</div>;
-  }
-
-  if (loading) {
-    return <div>loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>loading...</div>;
+  // }
   // if (!newsData?.fetchBoards) return <div>no</div>;
   const newDiaryCount = newDateCount(newsData?.fetchBoards);
-  console.log("하잉", newDiaryCount);
+
   const isDiaryNew = newDiaryCount > 0;
   const slicedData = newsData?.fetchBoards?.slice(0, 4);
 
@@ -80,7 +82,7 @@ const MainBoard = () => {
           <Title>Update news</Title>
           <Divider />
           {newsData?.fetchBoards?.length === 0 ? (
-            <div>new Data undefined</div>
+            <Text>작성된 다이어리가 없습니다</Text>
           ) : (
             <>
               {slicedData?.map((news, index) => (
@@ -149,6 +151,12 @@ const MainBoard = () => {
 const ContentBoards = styled.div`
   display: flex;
   margin-bottom: 15px;
+
+  > div {
+    > p {
+      width: 230px;
+    }
+  }
 `;
 
 const Dashboard = styled.div`

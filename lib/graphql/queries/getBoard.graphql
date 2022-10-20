@@ -1,6 +1,7 @@
 query getBoard($number: Int) {
   fetchBoard(number: $number) {
-    number 
+    number
+    writer
     title
     contents
     createdAt
@@ -10,6 +11,6 @@ query getBoard($number: Int) {
 query getEditBoard($number: Int) {
   fetchBoard(number: $number) {
     title
-    contents 
+    contents
   }
 }

@@ -25,13 +25,13 @@ const DiaryBoardContainer = ({ id }: DiaryDetailProps) => {
 
     const { data } = res;
     if (!data) {
-      // throw new Error('post deletion failed')
       alert("데이터 삭제에 실패하였습니다.");
       return;
     }
     alert(data.deleteBoard?.message);
     router.push(`/diary`);
   };
+
   const handleDiaryList = () => {
     router.push(`/diary`);
   };

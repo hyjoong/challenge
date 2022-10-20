@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useRouter } from "next/router";
 import DiaryNewWrapper from "components/organisms/DiaryNewWrapper";
 import Profile from "components/organisms/Profile";
 import InnerBox from "../InnerBox";
@@ -11,13 +12,18 @@ import {
 import { DiaryDetailProps } from "types";
 
 const DiaryEditContainer = ({ id }: DiaryDetailProps) => {
-  const { data: editBoardData } = useGetEditBoardQuery({
+  const router = useRouter();
+  const { data: editBoardData, refetch } = useGetEditBoardQuery({
     variables: { number: Number(id) } as GetEditBoardQueryVariables,
   }) as GetEditBoardQueryResult;
-  console.log("datadata", editBoardData);
 
   const editTitle = editBoardData?.fetchBoard?.title;
   const editContents = editBoardData?.fetchBoard?.contents;
+
+  useEffect(() => {
+    refetch();
+  }, [router]);
+
   return (
     <InnerBox>
       <Profile />
