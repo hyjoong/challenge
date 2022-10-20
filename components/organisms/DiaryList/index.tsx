@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   GetDiarysQueryResult,
   GetDiarysQueryVariables,
+  useGetBoardsCountQuery,
   useGetDiarysQuery,
 } from "lib/graphql/queries/schema";
 import { useRouter } from "next/router";
@@ -12,14 +13,19 @@ import Title from "components/atoms/Title";
 import Button from "components/atoms/Button";
 import DiaryItem from "components/molecules/DiaryItem";
 import Contents from "../Contents/index";
+import Pagination from "components/molecules/Pagination";
 
 const DirayList = () => {
+  const SIZE = 10;
   const router = useRouter();
+  const [page, setPage] = useState<number>(1);
+
   const { data: diarysData, refetch } = useGetDiarysQuery({
-    variables: { input: 0 } as GetDiarysQueryVariables,
+    variables: { input: page } as GetDiarysQueryVariables,
   }) as GetDiarysQueryResult;
 
-  const slicedData = diarysData?.fetchBoards?.slice(0, 5);
+  const { data: boardsCount, refetch: refetchBoardsCount } =
+    useGetBoardsCountQuery();
 
   const handleCreateDiary = () => {
     router.push(`/diary/new`);
@@ -28,10 +34,26 @@ const DirayList = () => {
   const handleDiaryClick = (id: number) => {
     router.push(`/diary/${id}`);
   };
+  const isEndPagination = (boardsCount: number): boolean =>
+    boardsCount - (page + 10) <= 0;
+
+  const handlePrevPage = () => {
+    if (page === 1) {
+      return;
+    }
+    setPage((prev) => prev - 1);
+  };
+  const handleNextPage = () => {
+    setPage((prev) => prev + 1);
+  };
+
+  const isEndPage =
+    (boardsCount?.fetchBoardsCount as number) - ((page - 1) * SIZE + SIZE) <= 0;
 
   useEffect(() => {
     refetch();
-  }, [router]);
+    refetchBoardsCount();
+  }, [router, page]);
 
   return (
     <Contents>
@@ -44,15 +66,23 @@ const DirayList = () => {
           <Button onClick={handleCreateDiary}>다이어리 작성</Button>
         </DiaryHeader>
         <Divider />
-        {slicedData?.map((item, index) => (
-          <DiaryItem
-            key={index}
-            title={item.title}
-            number={item.number}
-            createdAt={item.createdAt}
-            onClick={() => handleDiaryClick(item.number)}
-          />
-        ))}
+        <DiaryItemList>
+          {diarysData?.fetchBoards?.map((item, index) => (
+            <DiaryItem
+              key={index}
+              title={item.title}
+              number={item.number}
+              createdAt={item.createdAt}
+              onClick={() => handleDiaryClick(item.number)}
+            />
+          ))}
+        </DiaryItemList>
+        <Pagination
+          page={page}
+          isEndPage={isEndPage}
+          handlePrevPage={handlePrevPage}
+          handleNextPage={handleNextPage}
+        />
       </StyledDiaryList>
     </Contents>
   );
@@ -81,6 +111,19 @@ const DiaryTitle = styled.div`
       font-size: 8px;
       margin-left: 5px;
     }
+  }
+`;
+
+const DiaryItemList = styled.div`
+  height: 320px;
+  overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    background-color: #e9e9e9;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #c5c2c2;
   }
 `;
 

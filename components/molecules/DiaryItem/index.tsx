@@ -39,7 +39,7 @@ const StyledDiaryItem = styled.div`
   height: 34px;
   padding: 13px 20px;
   border: 1.5px solid ${({ theme }) => theme.color.normalGray};
-  margin-bottom: 9px;
+  margin: 0 3px 9px 0;
 `;
 
 const ItemTitle = styled.div`

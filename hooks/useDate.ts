@@ -19,7 +19,7 @@ const useDate = () => {
     const yesterday = new Date(new Date().setDate(day - 1)).toISOString();
 
     let count = 0;
-    diaryList.forEach((date) => {
+    diaryList?.forEach((date) => {
       yesterday < date.createdAt && count++;
     });
 
