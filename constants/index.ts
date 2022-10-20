@@ -54,4 +54,6 @@ export const tabList: TabType[] = [
   { title: "다이어리", value: "/diary" },
 ];
 
-export const defaultWritter: string = "henry";
+export const defaultWritter: string = "김헨리";
+
+export const defaultLottoNumbers = ["3", "5", "10", "24", "30", "34"];
