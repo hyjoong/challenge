@@ -1,9 +1,8 @@
-// import Image from "next/image";
+import React from "react";
+import styled from "styled-components";
 import Button from "components/atoms/Button";
 import Image from "components/atoms/Image";
 import Text from "components/atoms/Text";
-import React from "react";
-import styled from "styled-components";
 
 interface Props {
   id: string;

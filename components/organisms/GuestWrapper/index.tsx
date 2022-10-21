@@ -1,10 +1,12 @@
-import Divider from "components/atoms/Divider";
 import Title from "components/atoms/Title";
 import GuestItem from "components/molecules/GuestItem";
+import GuestPost from "components/molecules/GuestPost";
 import Pagination from "components/molecules/Pagination";
+import { defaultWritter } from "constants/index";
 import {
   GetGuestsQueryResult,
   GetGuestsQueryVariables,
+  useCreateGuestMutation,
   useDeleteGuestMutation,
   useGetGuestsCountQuery,
   useGetGuestsQuery,
@@ -18,6 +20,8 @@ const GuestWrapper = () => {
   const SIZE = 10;
   const [page, setPage] = useState<number>(1);
   const router = useRouter();
+  const [detail, setDetail] = useState<string>("");
+  const [createGuest] = useCreateGuestMutation();
 
   const { data, refetch: refetchGuestsData } = useGetGuestsQuery({
     variables: { page } as GetGuestsQueryVariables,
@@ -58,6 +62,33 @@ const GuestWrapper = () => {
     return;
   };
 
+  const handleCreateGuest = async () => {
+    const res = await createGuest({
+      variables: {
+        seller: defaultWritter,
+        createProductInput: { name: defaultWritter, detail },
+      },
+    });
+
+    const { data } = res;
+
+    if (!data) {
+      alert("방명록 작성에 실패하였습니다");
+      return;
+    }
+
+    alert("방명록 등록에 성공하였습니다");
+    setDetail("");
+    router.push("/guest");
+  };
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { value } = event.target;
+    setDetail(value);
+  };
+
   useEffect(() => {
     refetchGuestsData();
     refetchGuestsCount();
@@ -67,6 +98,11 @@ const GuestWrapper = () => {
     <Contents>
       <Title>Guest</Title>
       <GuestItemList>
+        <GuestPost
+          detail={detail}
+          handleChange={handleChange}
+          onClick={handleCreateGuest}
+        />
         {data?.fetchProducts?.map((item, index) => (
           <GuestItem
             key={index}
