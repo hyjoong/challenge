@@ -4,8 +4,12 @@ import {
   BoardReturn,
   GetDiarysQueryResult,
   GetDiarysQueryVariables,
+  GetGuestsDateQueryResult,
+  GetGuestsDateQueryVariables,
   useGetBoardsCountQuery,
   useGetDiarysQuery,
+  useGetGuestsCountQuery,
+  useGetGuestsDateQuery,
 } from "lib/graphql/queries/schema";
 import { useRouter } from "next/router";
 import NewsItem from "components/molecules/NewsItem";
@@ -21,24 +25,34 @@ import useDate from "hooks/useDate";
 
 const MainBoard = () => {
   const router = useRouter();
-  const DEFAULT_PAGE = 0;
+  const DEFAULT_PAGE = 1;
   const [checkItems, setCheckItems] = useState<string[]>([]);
 
   useEffect(() => {
     refetchNewsData();
     refetchBoardsCount();
+    refetchGuestsData();
+    refetchGuestsCount();
   }, [router]);
 
   const { data: newsData, refetch: refetchNewsData } = useGetDiarysQuery({
     variables: { input: DEFAULT_PAGE } as GetDiarysQueryVariables,
   }) as GetDiarysQueryResult;
 
+  const { data: guestsData, refetch: refetchGuestsData } =
+    useGetGuestsDateQuery({
+      variables: { page: DEFAULT_PAGE } as GetGuestsDateQueryVariables,
+    }) as GetGuestsDateQueryResult;
+
   const { newDateCount } = useDate();
   const { data: boardsCount, refetch: refetchBoardsCount } =
     useGetBoardsCountQuery();
 
-  const newDiaryCount = newDateCount(newsData?.fetchBoards);
+  const { data: guestsCount, refetch: refetchGuestsCount } =
+    useGetGuestsCountQuery();
 
+  const newDiaryCount = newDateCount(newsData?.fetchBoards);
+  const newGuestCount = newDateCount(guestsData?.fetchProducts);
   const isDiaryNew = newDiaryCount > 0;
   const slicedData = newsData?.fetchBoards?.slice(0, 4);
 
@@ -67,8 +81,8 @@ const MainBoard = () => {
     router.push(`/diary/${id}`);
   };
 
-  const handleDiaryPage = () => {
-    router.push("/diary");
+  const handleDiaryPage = (page: string): void => {
+    router.push(`/${page}`);
   };
 
   return (
@@ -93,12 +107,23 @@ const MainBoard = () => {
           )}
         </div>
         <Dashboard>
-          <button onClick={handleDiaryPage}>
+          <button onClick={() => handleDiaryPage("diary")}>
             <div className="dashboardItem">
               <Text>다이어리</Text>
               <div className="countBox">
                 <Text isBold={true}>
                   {newDiaryCount}/{boardsCount?.fetchBoardsCount}
+                </Text>
+                <div>{isDiaryNew && <Chip type="new">N</Chip>}</div>
+              </div>
+            </div>
+          </button>
+          <button onClick={() => handleDiaryPage("guest")}>
+            <div className="dashboardItem">
+              <Text>방명록</Text>
+              <div className="countBox">
+                <Text isBold={true}>
+                  {newGuestCount}/{guestsCount?.fetchProductsCount}
                 </Text>
                 <div>{isDiaryNew && <Chip type="new">N</Chip>}</div>
               </div>
