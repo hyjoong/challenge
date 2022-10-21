@@ -1,0 +1,14 @@
+query getGuests($page: Int) {
+  fetchProducts(page: $page) {
+    _id
+    name
+    detail
+    createdAt
+  }
+}
+
+query getGuestsDate($page: Int) {
+  fetchProducts(page: $page) {
+    createdAt
+  }
+}

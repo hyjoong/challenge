@@ -20,11 +20,7 @@ export const dashboardList: DashboardType[] = [
     count: "0/15",
     isNew: false,
   },
-  {
-    title: "방명록",
-    count: "0/15",
-    isNew: true,
-  },
+
   {
     title: "",
     count: "",
@@ -52,6 +48,7 @@ export const tabList: TabType[] = [
   { title: "홈", value: "/" },
   { title: "게임", value: "/game" },
   { title: "다이어리", value: "/diary" },
+  { title: "방명록", value: "/guest" },
 ];
 
 export const defaultWritter: string = "김헨리";

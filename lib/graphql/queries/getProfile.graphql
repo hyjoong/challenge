@@ -1,0 +1,8 @@
+query getProfile($name: String) {
+  fetchProfile(name: $name) {
+    name
+    number
+    school
+    age
+  }
+}

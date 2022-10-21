@@ -1,0 +1,8 @@
+mutation createGuest(
+  $seller: String
+  $createProductInput: CreateProductInput!
+) {
+  createProduct(seller: $seller, createProductInput: $createProductInput) {
+    message
+  }
+}
