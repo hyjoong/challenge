@@ -23,18 +23,31 @@ const GameWrapper = () => {
   };
 
   const handleSearch = () => {
+    if (wordInput.length === 1) {
+      alert("2글자 이상 입력해 주세요");
+      return;
+    }
     if (word[word.length - 1] === wordInput[0]) {
       setWord(wordInput);
       setResult("정답입니다!");
+      setWordInput("");
     } else {
       setResult("오답입니다!");
+      setWordInput("");
+    }
+  };
+
+  const handleOnKeyUp = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    const { value } = e.target as HTMLInputElement;
+    if (e.key === "Enter" && value.trim() !== "") {
+      handleSearch();
     }
   };
 
   const handleMakeLottos = () => {
     const lottos = new Array();
-    for (let i = 0; i < 6; i++) {
-      const num = parseInt(Math.random() * 45 + 1);
+    while (lottos.length < 6) {
+      const num = Math.floor(Math.random() * 45 + 1);
       if (lottos.indexOf(num) == -1) {
         lottos.push(num);
       }
@@ -59,6 +72,7 @@ const GameWrapper = () => {
             onChange={handleword}
             wordInput={wordInput}
             onClick={handleSearch}
+            onKeyUp={handleOnKeyUp}
           />
           <Text>{result}</Text>
         </GameBox>
