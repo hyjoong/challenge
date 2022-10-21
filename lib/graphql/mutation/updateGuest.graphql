@@ -1,0 +1,8 @@
+mutation updateGuest($productId: ID, $updateProductInput: UpdateProductInput!) {
+  updateProduct(
+    productId: $productId
+    updateProductInput: $updateProductInput
+  ) {
+    message
+  }
+}
