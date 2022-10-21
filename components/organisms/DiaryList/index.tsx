@@ -20,22 +20,24 @@ const DirayList = () => {
   const router = useRouter();
   const [page, setPage] = useState<number>(1);
 
-  const { data: diarysData, refetch } = useGetDiarysQuery({
+  const { data: diarysData, refetch: refetchDiarysData } = useGetDiarysQuery({
     variables: { input: page } as GetDiarysQueryVariables,
   }) as GetDiarysQueryResult;
 
-  const { data: boardsCount, refetch: refetchBoardsCount } =
+  const { data: diarysCount, refetch: refetchDiarysCount } =
     useGetBoardsCountQuery();
 
   const handleCreateDiary = () => {
     router.push(`/diary/new`);
   };
 
-  const handleDiaryClick = (id: number) => {
+  const handleDiaryClick = (id: number | null) => {
+    if (!id) {
+      alert("There is no id value in the diary");
+      return;
+    }
     router.push(`/diary/${id}`);
   };
-  const isEndPagination = (boardsCount: number): boolean =>
-    boardsCount - (page + 10) <= 0;
 
   const handlePrevPage = () => {
     if (page === 1) {
@@ -43,16 +45,16 @@ const DirayList = () => {
     }
     setPage((prev) => prev - 1);
   };
-  const handleNextPage = () => {
+  const handleNextPage = (): void => {
     setPage((prev) => prev + 1);
   };
 
   const isEndPage =
-    (boardsCount?.fetchBoardsCount as number) - ((page - 1) * SIZE + SIZE) <= 0;
+    (diarysCount?.fetchBoardsCount as number) - ((page - 1) * SIZE + SIZE) <= 0;
 
   useEffect(() => {
-    refetch();
-    refetchBoardsCount();
+    refetchDiarysData();
+    refetchDiarysCount();
   }, [router, page]);
 
   return (
@@ -70,10 +72,10 @@ const DirayList = () => {
           {diarysData?.fetchBoards?.map((item, index) => (
             <DiaryItem
               key={index}
-              title={item.title}
-              number={item.number}
+              title={item.title ?? ""}
+              number={item.number ?? null}
               createdAt={item.createdAt}
-              onClick={() => handleDiaryClick(item.number)}
+              onClick={() => handleDiaryClick(item.number ?? null)}
             />
           ))}
         </DiaryItemList>

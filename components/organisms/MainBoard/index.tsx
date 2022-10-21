@@ -37,10 +37,6 @@ const MainBoard = () => {
   const { data: boardsCount, refetch: refetchBoardsCount } =
     useGetBoardsCountQuery();
 
-  // if (loading) {
-  //   return <div>loading...</div>;
-  // }
-  // if (!newsData?.fetchBoards) return <div>no</div>;
   const newDiaryCount = newDateCount(newsData?.fetchBoards);
 
   const isDiaryNew = newDiaryCount > 0;

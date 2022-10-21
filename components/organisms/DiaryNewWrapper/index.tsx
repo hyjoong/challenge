@@ -56,7 +56,6 @@ const DiaryNewWrapper = ({
     } else {
       setContents(value);
     }
-    console.log("title ", title, contents);
   };
 
   const handleApply = async () => {
@@ -92,8 +91,8 @@ const DiaryNewWrapper = ({
 
   useEffect(() => {
     if (editTitle || editContents) {
-      setTitle(editTitle);
-      setContents(editContents);
+      setTitle(editTitle ?? "");
+      setContents(editContents ?? "");
     }
   }, [editTitle, editContents]);
 

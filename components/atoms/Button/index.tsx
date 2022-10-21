@@ -68,7 +68,6 @@ const StyledButton = styled.button<ButtonType>`
     (styleType === "arrow" &&
       css`
         border: none;
-        color: ${(props) => props.disabled && "#e2e2e2"};
       `)};
 `;
 

@@ -1,4 +1,3 @@
-import React from "react";
 import { DiaryType } from "types";
 
 type DateType = `${string}-${string}-${string}`;
@@ -13,13 +12,13 @@ const useDate = () => {
     return `${year}-${month}-${date}`;
   };
 
-  const newDateCount = (diaryList: DiaryType[]): number => {
+  const newDateCount = (diaryList: any): number => {
     const today = new Date();
-    const day = today.getDate();
-    const yesterday = new Date(new Date().setDate(day - 1)).toISOString();
-
+    const hour = today.getHours();
+    const yesterday = new Date(new Date().setHours(hour - 12)).toISOString();
     let count = 0;
-    diaryList?.forEach((date) => {
+
+    diaryList?.forEach((date: DiaryType) => {
       yesterday < date.createdAt && count++;
     });
 

@@ -6,9 +6,9 @@ import useDate from "hooks/useDate";
 
 interface Props {
   title: string;
-  number: number;
+  number: number | null;
   createdAt: string;
-  onClick: (id: number) => void;
+  onClick: (id: number | null) => void;
 }
 
 const DiaryItem = ({ title, number, createdAt, onClick }: Props) => {
@@ -25,7 +25,7 @@ const DiaryItem = ({ title, number, createdAt, onClick }: Props) => {
           <Text isBold={true}>제목 : {title}</Text>
         </FlexBox>
       </ItemTitle>
-      <LinkButton value={number} onClick={() => onClick(number)}>
+      <LinkButton value={number!} onClick={() => onClick(number)}>
         자세히 보러가기 {">"}
       </LinkButton>
     </StyledDiaryItem>
