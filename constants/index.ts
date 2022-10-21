@@ -54,3 +54,5 @@ export const tabList: TabType[] = [
 export const defaultWritter: string = "김헨리";
 
 export const defaultLottoNumbers = ["3", "5", "10", "24", "30", "34"];
+
+export const defaultSize = 10;

@@ -1,8 +1,5 @@
-import Title from "components/atoms/Title";
-import GuestItem from "components/molecules/GuestItem";
-import GuestPost from "components/molecules/GuestPost";
-import Pagination from "components/molecules/Pagination";
-import { defaultWritter } from "constants/index";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import {
   GetGuestsQueryResult,
   GetGuestsQueryVariables,
@@ -12,19 +9,22 @@ import {
   useGetGuestsQuery,
 } from "lib/graphql/queries/schema";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import Title from "components/atoms/Title";
+import GuestItem from "components/molecules/GuestItem";
+import GuestPost from "components/molecules/GuestPost";
+import Pagination from "components/molecules/Pagination";
+import { defaultWritter } from "constants/index";
 import Contents from "../Contents";
+import usePagination from "hooks/usePagination";
+import { PageProps } from "types";
 
-const GuestWrapper = () => {
-  const SIZE = 10;
-  const [page, setPage] = useState<number>(1);
+const GuestWrapper = ({ query }: PageProps) => {
   const router = useRouter();
   const [detail, setDetail] = useState<string>("");
   const [createGuest] = useCreateGuestMutation();
 
   const { data, refetch: refetchGuestsData } = useGetGuestsQuery({
-    variables: { page } as GetGuestsQueryVariables,
+    variables: { page: Number(query.page) } as GetGuestsQueryVariables,
   }) as GetGuestsQueryResult;
 
   const { data: guestsCount, refetch: refetchGuestsCount } =
@@ -32,20 +32,10 @@ const GuestWrapper = () => {
 
   const [deleteGuest] = useDeleteGuestMutation();
 
-  const isEndPage =
-    (guestsCount?.fetchProductsCount as number) - ((page - 1) * SIZE + SIZE) <=
-    0;
-
-  const handlePrevPage = () => {
-    if (page === 1) {
-      return;
-    }
-    setPage((prev) => prev - 1);
-  };
-
-  const handleNextPage = (): void => {
-    setPage((prev) => prev + 1);
-  };
+  const [page, isEndPage, handlePrevPage, handleNextPage] = usePagination(
+    Number(query.page),
+    guestsCount?.fetchProductsCount ?? 0
+  );
 
   const handleDeleteGuest = async (id: string) => {
     const res = await deleteGuest({
@@ -114,7 +104,7 @@ const GuestWrapper = () => {
         ))}
       </GuestItemList>
       <Pagination
-        page={page}
+        page={Number(query.page)}
         isEndPage={isEndPage}
         handlePrevPage={handlePrevPage}
         handleNextPage={handleNextPage}
