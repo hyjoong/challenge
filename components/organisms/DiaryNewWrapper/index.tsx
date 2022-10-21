@@ -86,7 +86,7 @@ const DiaryNewWrapper = ({
     router.push(`/diary/${resNumber}`);
   };
   const handleCancel = () => {
-    router.push(`/diary`);
+    router.back();
   };
 
   useEffect(() => {

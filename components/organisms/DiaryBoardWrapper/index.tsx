@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useDeleteBoardMutation } from "lib/graphql/queries/schema";
-
 import Button from "components/atoms/Button";
 import Divider from "components/atoms/Divider";
 import Title from "components/atoms/Title";
@@ -29,11 +28,11 @@ const DiaryBoardContainer = ({ id }: DiaryDetailProps) => {
       return;
     }
     alert(data.deleteBoard?.message);
-    router.push(`/diary`);
+    router.push(`/diary?page=1`);
   };
 
   const handleDiaryList = () => {
-    router.push(`/diary`);
+    router.push(`/diary?page=1`);
   };
 
   return (

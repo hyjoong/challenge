@@ -14,14 +14,13 @@ import Button from "components/atoms/Button";
 import DiaryItem from "components/molecules/DiaryItem";
 import Contents from "../Contents/index";
 import Pagination from "components/molecules/Pagination";
+import usePagination from "hooks/usePagination";
+import { PageProps } from "types";
 
-const DirayList = () => {
-  const SIZE = 10;
+const DiaryList = ({ query }: PageProps) => {
   const router = useRouter();
-  const [page, setPage] = useState<number>(1);
-
   const { data: diarysData, refetch: refetchDiarysData } = useGetDiarysQuery({
-    variables: { input: page } as GetDiarysQueryVariables,
+    variables: { input: Number(query.page) } as GetDiarysQueryVariables,
   }) as GetDiarysQueryResult;
 
   const { data: diarysCount, refetch: refetchDiarysCount } =
@@ -39,18 +38,10 @@ const DirayList = () => {
     router.push(`/diary/${id}`);
   };
 
-  const handlePrevPage = () => {
-    if (page === 1) {
-      return;
-    }
-    setPage((prev) => prev - 1);
-  };
-  const handleNextPage = (): void => {
-    setPage((prev) => prev + 1);
-  };
-
-  const isEndPage =
-    (diarysCount?.fetchBoardsCount as number) - ((page - 1) * SIZE + SIZE) <= 0;
+  const [page, isEndPage, handlePrevPage, handleNextPage] = usePagination(
+    Number(query.page),
+    diarysCount?.fetchBoardsCount ?? 0
+  );
 
   useEffect(() => {
     refetchDiarysData();
@@ -73,14 +64,14 @@ const DirayList = () => {
             <DiaryItem
               key={index}
               title={item.title ?? ""}
-              number={item.number ?? null}
+              number={item.number!}
               createdAt={item.createdAt}
               onClick={() => handleDiaryClick(item.number ?? null)}
             />
           ))}
         </DiaryItemList>
         <Pagination
-          page={page}
+          page={Number(query.page)}
           isEndPage={isEndPage}
           handlePrevPage={handlePrevPage}
           handleNextPage={handleNextPage}
@@ -129,4 +120,4 @@ const DiaryItemList = styled.div`
   }
 `;
 
-export default DirayList;
+export default DiaryList;

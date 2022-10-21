@@ -13,7 +13,12 @@ const InnerBox = ({ children }: Props) => {
   const router = useRouter();
   const handleTabClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     const { value } = e.target as HTMLButtonElement;
-    router.push(`${value}`);
+
+    if (value === "/diary" || value === "/guest") {
+      router.push(`${value}?page=1`);
+    } else {
+      router.push(`${value}`);
+    }
   };
 
   const path = `/${router.pathname.split("/").splice(1, 1)[0]}`;

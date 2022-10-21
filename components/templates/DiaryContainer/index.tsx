@@ -1,13 +1,14 @@
 import React from "react";
 import InnerBox from "../InnerBox";
 import Profile from "components/organisms/Profile";
-import DirayList from "components/organisms/DiaryList";
+import DiaryList from "components/organisms/DiaryList";
+import { PageProps } from "types";
 
-const DiaryContainer = () => {
+const DiaryContainer = ({ query }: PageProps) => {
   return (
     <InnerBox>
       <Profile />
-      <DirayList />
+      <DiaryList query={query} />
     </InnerBox>
   );
 };

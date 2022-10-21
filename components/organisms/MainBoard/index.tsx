@@ -81,8 +81,8 @@ const MainBoard = () => {
     router.push(`/diary/${id}`);
   };
 
-  const handleDiaryPage = (page: string): void => {
-    router.push(`/${page}`);
+  const handlePage = (page: string): void => {
+    router.push(`/${page}?page=1`);
   };
 
   return (
@@ -107,7 +107,7 @@ const MainBoard = () => {
           )}
         </div>
         <Dashboard>
-          <button onClick={() => handleDiaryPage("diary")}>
+          <button onClick={() => handlePage("diary")}>
             <div className="dashboardItem">
               <Text>다이어리</Text>
               <div className="countBox">
@@ -118,7 +118,7 @@ const MainBoard = () => {
               </div>
             </div>
           </button>
-          <button onClick={() => handleDiaryPage("guest")}>
+          <button onClick={() => handlePage("guest")}>
             <div className="dashboardItem">
               <Text>방명록</Text>
               <div className="countBox">

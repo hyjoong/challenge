@@ -1,3 +1,5 @@
+import { NextParsedUrlQuery } from "next/dist/server/request-meta";
+
 export interface DiaryDetailProps {
   id: string;
 }
@@ -29,4 +31,7 @@ export interface DiaryType {
   title?: string;
   contents?: string;
   like?: string;
+}
+export interface PageProps {
+  query: NextParsedUrlQuery;
 }
