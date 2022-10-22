@@ -52,7 +52,7 @@ const GuestWrapper = ({ query }: PageProps) => {
       alert("방명록 삭제에 실패하였습니다.");
       return;
     }
-    alert(data.deleteProduct?.message);
+    alert("방명록 성공에 성공하였습니다.");
     router.push(`/guest?page=${query.page}`);
     return;
   };
@@ -106,6 +106,7 @@ const GuestWrapper = ({ query }: PageProps) => {
               <GuestItem
                 key={index}
                 id={item._id!}
+                createdAt={item.createdAt}
                 name={item.name ?? "이름없음"}
                 detail={item.detail ?? "내용없음"}
                 onClick={handleDeleteGuest}
