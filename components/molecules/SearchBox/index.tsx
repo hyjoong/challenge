@@ -32,7 +32,7 @@ const StyledSearchBox = styled.div`
     border-radius: 5px;
     width: 68%;
     :focus {
-      outline: 1px solid ${({ theme }) => theme.color.darkGray};
+      outline: 1px solid ${({ theme }) => theme.color.lightGray};
     }
   }
 `;

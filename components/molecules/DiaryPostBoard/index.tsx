@@ -48,10 +48,18 @@ const PostBoardWrapper = styled.div`
 
   > input {
     margin: 0 0 14px;
+
+    :focus {
+      outline: 1px solid ${({ theme }) => theme.color.lightGray};
+    }
   }
 
   > textarea {
     height: 165px;
+
+    :focus {
+      outline: 1px solid ${({ theme }) => theme.color.lightGray};
+    }
   }
 `;
 

@@ -48,6 +48,10 @@ const GuestPostMain = styled.div`
     margin-left: 30px;
     width: 100%;
     font-size: 12px;
+
+    :focus {
+      outline: 1px solid ${({ theme }) => theme.color.lightGray};
+    }
   }
 `;
 
