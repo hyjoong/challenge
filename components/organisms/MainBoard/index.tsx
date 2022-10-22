@@ -54,6 +54,7 @@ const MainBoard = () => {
   const newDiaryCount = newDateCount(newsData?.fetchBoards);
   const newGuestCount = newDateCount(guestsData?.fetchProducts);
   const isDiaryNew = newDiaryCount > 0;
+  const isGuestNew = newGuestCount > 0;
   const slicedData = newsData?.fetchBoards?.slice(0, 4);
 
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,7 +126,7 @@ const MainBoard = () => {
                 <Text isBold={true}>
                   {newGuestCount}/{guestsCount?.fetchProductsCount}
                 </Text>
-                <div>{isDiaryNew && <Chip type="new">N</Chip>}</div>
+                <div>{isGuestNew && <Chip type="new">N</Chip>}</div>
               </div>
             </div>
           </button>

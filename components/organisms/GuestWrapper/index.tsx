@@ -48,7 +48,7 @@ const GuestWrapper = ({ query }: PageProps) => {
       return;
     }
     alert(data.deleteProduct?.message);
-    router.push("/guest");
+    router.push(`/guest?page=${query.page}`);
     return;
   };
 
@@ -69,7 +69,7 @@ const GuestWrapper = ({ query }: PageProps) => {
 
     alert("방명록 등록에 성공하였습니다");
     setDetail("");
-    router.push("/guest");
+    router.push(`/guest?page=1`);
   };
 
   const handleChange = (

@@ -14,11 +14,7 @@ const InnerBox = ({ children }: Props) => {
   const handleTabClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     const { value } = e.target as HTMLButtonElement;
 
-    if (value === "/diary" || value === "/guest") {
-      router.push(`${value}?page=1`);
-    } else {
-      router.push(`${value}`);
-    }
+    router.push(`${value}`);
   };
 
   const path = `/${router.pathname.split("/").splice(1, 1)[0]}`;

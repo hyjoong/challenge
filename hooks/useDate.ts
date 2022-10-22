@@ -14,8 +14,8 @@ const useDate = () => {
 
   const newDateCount = (diaryList: any): number => {
     const today = new Date();
-    const hour = today.getHours();
-    const yesterday = new Date(new Date().setHours(hour - 12)).toISOString();
+    const day = today.getDate();
+    const yesterday = new Date(new Date().setDate(day - 1)).toISOString();
     let count = 0;
 
     diaryList?.forEach((date: DiaryType) => {

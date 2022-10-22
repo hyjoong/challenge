@@ -47,8 +47,8 @@ export const bgmList: BgmType[] = [
 export const tabList: TabType[] = [
   { title: "홈", value: "/" },
   { title: "게임", value: "/game" },
-  { title: "다이어리", value: "/diary" },
-  { title: "방명록", value: "/guest" },
+  { title: "다이어리", value: "/diary?page=1" },
+  { title: "방명록", value: "/guest?page=1" },
 ];
 
 export const defaultWritter: string = "김헨리";

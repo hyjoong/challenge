@@ -80,7 +80,7 @@ const GameWrapper = () => {
           <Image name="lotto" />
           <Text>버튼을 누르세요.</Text>
           <LottoNumbers lottoNumbers={lottoList} />
-          <Button onClick={handleMakeLottos}>BUTTON</Button>
+          <Button onClick={handleMakeLottos}>추첨</Button>
         </GameBox>
       </GameListBox>
     </Contents>
