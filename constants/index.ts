@@ -45,10 +45,10 @@ export const bgmList: BgmType[] = [
 ];
 
 export const tabList: TabType[] = [
-  { title: "홈", value: "/" },
-  { title: "게임", value: "/game" },
-  { title: "다이어리", value: "/diary?page=1" },
-  { title: "방명록", value: "/guest?page=1" },
+  { title: "홈", path: "/", value: "/" },
+  { title: "게임", path: "/game", value: "/game" },
+  { title: "다이어리", path: "/diary?page=1", value: "/diary" },
+  { title: "방명록", path: "/guest?page=1", value: "/guest" },
 ];
 
 export const defaultWritter: string = "김헨리";

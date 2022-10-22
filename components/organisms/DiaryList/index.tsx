@@ -11,6 +11,7 @@ import Divider from "components/atoms/Divider";
 import Text from "components/atoms/Text";
 import Title from "components/atoms/Title";
 import Button from "components/atoms/Button";
+import Loading from "components/atoms/Loading";
 import DiaryItem from "components/molecules/DiaryItem";
 import Contents from "../Contents/index";
 import Pagination from "components/molecules/Pagination";
@@ -19,7 +20,11 @@ import { PageProps } from "types";
 
 const DiaryList = ({ query }: PageProps) => {
   const router = useRouter();
-  const { data: diarysData, refetch: refetchDiarysData } = useGetDiarysQuery({
+  const {
+    data: diarysData,
+    loading: diarysDataLoading,
+    refetch: refetchDiarysData,
+  } = useGetDiarysQuery({
     variables: { input: Number(query.page) } as GetDiarysQueryVariables,
   }) as GetDiarysQueryResult;
 
@@ -60,15 +65,21 @@ const DiaryList = ({ query }: PageProps) => {
         </DiaryHeader>
         <Divider />
         <DiaryItemList>
-          {diarysData?.fetchBoards?.map((item, index) => (
-            <DiaryItem
-              key={index}
-              title={item.title ?? ""}
-              number={item.number!}
-              createdAt={item.createdAt}
-              onClick={() => handleDiaryClick(item.number ?? null)}
-            />
-          ))}
+          {diarysDataLoading ? (
+            <Loading />
+          ) : (
+            <>
+              {diarysData?.fetchBoards?.map((item, index) => (
+                <DiaryItem
+                  key={index}
+                  title={item.title ?? ""}
+                  number={item.number!}
+                  createdAt={item.createdAt}
+                  onClick={() => handleDiaryClick(item.number ?? null)}
+                />
+              ))}
+            </>
+          )}
         </DiaryItemList>
         <Pagination
           page={Number(query.page)}

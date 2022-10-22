@@ -21,6 +21,7 @@ export interface DashboardType {
 
 export interface TabType {
   title: string;
+  path: string;
   value: string;
 }
 

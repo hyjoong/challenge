@@ -11,13 +11,12 @@ interface Props {
 
 const InnerBox = ({ children }: Props) => {
   const router = useRouter();
+  const path = `/${router.pathname.split("/").splice(1, 1)[0]}`;
+
   const handleTabClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     const { value } = e.target as HTMLButtonElement;
-
     router.push(`${value}`);
   };
-
-  const path = `/${router.pathname.split("/").splice(1, 1)[0]}`;
 
   return (
     <StyledInnerBox>
@@ -27,7 +26,7 @@ const InnerBox = ({ children }: Props) => {
         <Tab
           key={key}
           index={key}
-          value={tab.value}
+          value={tab.path}
           onClick={handleTabClick}
           isActive={path === tab.value}
         >
