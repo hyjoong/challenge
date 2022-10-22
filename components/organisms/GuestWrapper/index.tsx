@@ -21,6 +21,7 @@ import { PageProps } from "types";
 
 const GuestWrapper = ({ query }: PageProps) => {
   const router = useRouter();
+  const [name, setName] = useState<string>("");
   const [detail, setDetail] = useState<string>("");
   const [createGuest] = useCreateGuestMutation();
 
@@ -61,7 +62,7 @@ const GuestWrapper = ({ query }: PageProps) => {
     const res = await createGuest({
       variables: {
         seller: defaultWritter,
-        createProductInput: { name: defaultWritter, detail },
+        createProductInput: { name, detail },
       },
     });
 
@@ -80,8 +81,16 @@ const GuestWrapper = ({ query }: PageProps) => {
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { value } = event.target;
-    setDetail(value);
+    const { value, name } = event.target;
+    if (name === "name") {
+      setName(value);
+    } else {
+      setDetail(value);
+    }
+  };
+
+  const isEmptyName = (name: string) => {
+    return name === "" ? "익명" : name;
   };
 
   useEffect(() => {
@@ -98,6 +107,7 @@ const GuestWrapper = ({ query }: PageProps) => {
         ) : (
           <>
             <GuestPost
+              name={name}
               detail={detail}
               handleChange={handleChange}
               onClick={handleCreateGuest}
@@ -107,7 +117,7 @@ const GuestWrapper = ({ query }: PageProps) => {
                 key={index}
                 id={item._id!}
                 createdAt={item.createdAt}
-                name={item.name ?? "이름없음"}
+                name={isEmptyName(item.name!) ?? "이름없음"}
                 detail={item.detail ?? "내용없음"}
                 onClick={handleDeleteGuest}
               />

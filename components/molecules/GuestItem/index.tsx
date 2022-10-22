@@ -41,6 +41,7 @@ const GuestItem = ({ id, createdAt, name, detail, onClick }: Props) => {
 
 const StyledGuestItem = styled.div`
   display: flex;
+  margin-right: 3px;
   flex-direction: column;
   border: 1.5px solid ${({ theme }) => theme.color.normalGray};
 `;

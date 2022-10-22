@@ -2,15 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import Button from "components/atoms/Button";
 import Image from "components/atoms/Image";
+import Input from "components/atoms/Input";
 import TextArea from "components/atoms/TextArea";
 
 interface Props {
   onClick: () => void;
+  name: string;
   detail: string;
-  handleChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  handleChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
 }
 
-const GuestPost = ({ onClick, handleChange, detail }: Props) => {
+const GuestPost = ({ onClick, name, detail, handleChange }: Props) => {
   return (
     <StyledGuestPost>
       <GuestPostMain>
@@ -23,6 +27,13 @@ const GuestPost = ({ onClick, handleChange, detail }: Props) => {
         />
       </GuestPostMain>
       <GuestSubmit>
+        <Input
+          placeholder="이름"
+          name="name"
+          value={name}
+          onChange={handleChange}
+          maxLength={10}
+        ></Input>
         <Button onClick={onClick}>확인</Button>
       </GuestSubmit>
     </StyledGuestPost>
@@ -33,6 +44,7 @@ const StyledGuestPost = styled.div`
   display: flex;
   flex-direction: column;
   padding: 13px 40px 6px 20px;
+  margin-right: 3px;
   background-color: ${({ theme }) => theme.color.softGray};
 `;
 
@@ -57,8 +69,12 @@ const GuestPostMain = styled.div`
 
 const GuestSubmit = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-top: 5px;
+
+  > input {
+    width: 55px;
+  }
 `;
 
 export default GuestPost;
