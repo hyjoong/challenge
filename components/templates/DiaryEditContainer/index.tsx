@@ -14,7 +14,11 @@ import { DiaryDetailProps } from "types";
 
 const DiaryEditContainer = ({ id }: DiaryDetailProps) => {
   const router = useRouter();
-  const { data: editBoardData, refetch } = useGetEditBoardQuery({
+  const {
+    data: editBoardData,
+    loading,
+    refetch,
+  } = useGetEditBoardQuery({
     variables: { number: Number(id) } as GetEditBoardQueryVariables,
   }) as GetEditBoardQueryResult;
 
@@ -31,6 +35,7 @@ const DiaryEditContainer = ({ id }: DiaryDetailProps) => {
       <DiaryNewWrapper
         useLazyQuery={useUpdateBoardMutation}
         id={id}
+        loading={loading}
         editTitle={editTitle ?? "-"}
         editContents={editContents ?? "-"}
       />

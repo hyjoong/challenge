@@ -4,13 +4,16 @@ import { useRouter } from "next/router";
 import Divider from "components/atoms/Divider";
 import Title from "components/atoms/Title";
 import Button from "components/atoms/Button";
+import Loading from "components/atoms/Loading";
 import DiaryPostBoard from "components/molecules/DiaryPostBoard";
 import Contents from "../Contents";
 import { defaultWritter } from "constants/index";
+import useFetchingInput from "hooks/useFetchingInput";
 
 interface Props {
   useLazyQuery: Function;
   id?: string;
+  loading?: boolean;
   editTitle?: string;
   editContents?: string;
 }
@@ -18,6 +21,7 @@ interface Props {
 const DiaryNewWrapper = ({
   useLazyQuery,
   id,
+  loading,
   editTitle,
   editContents,
 }: Props) => {
@@ -28,24 +32,8 @@ const DiaryNewWrapper = ({
   const [contents, setContents] = useState<string>("");
   const router = useRouter();
 
-  // 수정하기 or 게시글 등록에 따라 variables에 number 유뮤 다름
-  // 임시로 아래처럼 하드코딩 했지만 추후 코드개선 하기
-  const FetchingVariables = id
-    ? {
-        variables: {
-          writer: defaultWritter,
-          title,
-          contents,
-          number: Number(id),
-        },
-      }
-    : {
-        variables: {
-          writer: defaultWritter,
-          title,
-          contents,
-        },
-      };
+  const { setFetchingOption } = useFetchingInput();
+  const option = setFetchingOption({ id, title, contents });
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -67,8 +55,7 @@ const DiaryNewWrapper = ({
       alert("내용을 입력해 주세요");
       return;
     }
-
-    const res = await mutationQuery(FetchingVariables);
+    const res = await mutationQuery(option);
     if (res == null) {
       throw new Error("post registration error");
     }
@@ -101,19 +88,25 @@ const DiaryNewWrapper = ({
       <StyledNewWrapper>
         <Title>Diary | 글 등록</Title>
         <Divider />
-        <DiaryPostBoard
-          title={title}
-          contents={contents}
-          handleChange={handleChange}
-        />
-        <ButtonContainer>
-          <Button styleType="gray" onClick={handleApply}>
-            {id ? "수정" : "등록"}하기
-          </Button>
-          <Button styleType="gray" onClick={handleCancel}>
-            취소하기
-          </Button>
-        </ButtonContainer>
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            <DiaryPostBoard
+              title={title}
+              contents={contents}
+              handleChange={handleChange}
+            />
+            <ButtonContainer>
+              <Button styleType="gray" onClick={handleApply}>
+                {id ? "수정" : "등록"}하기
+              </Button>
+              <Button styleType="gray" onClick={handleCancel}>
+                취소하기
+              </Button>
+            </ButtonContainer>
+          </>
+        )}
       </StyledNewWrapper>
     </Contents>
   );

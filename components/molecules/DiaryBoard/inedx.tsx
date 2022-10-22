@@ -45,7 +45,7 @@ const StyledDiaryPost = styled.div`
 
   > p {
     :nth-child(2) {
-      margin: 30px 39px;
+      margin: 16px 39px 5px 39px;
       text-align: center;
       font-size: 15px;
       letter-spacing: -1px;
@@ -54,16 +54,26 @@ const StyledDiaryPost = styled.div`
     :nth-child(3) {
       display: flex;
       justify-content: flex-end;
-      margin: 0px 39px;
+      margin: 5px 39px 25px 39px;
       font-size: 12px;
       color: ${({ theme }) => theme.color.darkGray};
     }
 
     :nth-child(4) {
-      margin: 0px 39px;
+      padding: 0 20px;
       font-size: 11px;
       line-height: 15px;
       color: ${({ theme }) => theme.color.darkGray};
+      overflow-y: auto;
+
+      white-space: pre-wrap;
+      ::-webkit-scrollbar {
+        width: 2px;
+        background-color: #e9e9e9;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: #c5c2c2;
+      }
     }
   }
 `;

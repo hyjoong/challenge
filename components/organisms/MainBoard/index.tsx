@@ -16,6 +16,7 @@ import NewsItem from "components/molecules/NewsItem";
 import Title from "components/atoms/Title";
 import Divider from "components/atoms/Divider";
 import Text from "components/atoms/Text";
+import Loading from "components/atoms/Loading";
 import { bgmList, dashboardList } from "constants/index";
 import Checkbox from "components/molecules/Checkbox";
 import CheckboxInput from "components/atoms/CheckboxInput";
@@ -35,7 +36,11 @@ const MainBoard = () => {
     refetchGuestsCount();
   }, [router]);
 
-  const { data: newsData, refetch: refetchNewsData } = useGetDiarysQuery({
+  const {
+    data: newsData,
+    loading: newsDataLoading,
+    refetch: refetchNewsData,
+  } = useGetDiarysQuery({
     variables: { input: DEFAULT_PAGE } as GetDiarysQueryVariables,
   }) as GetDiarysQueryResult;
 
@@ -92,20 +97,23 @@ const MainBoard = () => {
         <div>
           <Title>Update news</Title>
           <Divider />
-          {newsData?.fetchBoards?.length === 0 ? (
-            <Text>작성된 다이어리가 없습니다</Text>
-          ) : (
-            <>
-              {slicedData?.map((news, index) => (
+
+          <NewsItemList>
+            {newsDataLoading ? (
+              <Loading />
+            ) : newsData?.fetchBoards?.length === 0 ? (
+              <Text>작성된 다이어리가 없습니다</Text>
+            ) : (
+              slicedData?.map((news, index) => (
                 <NewsItem
                   title={news.title}
                   id={news.number}
                   key={index}
                   onClick={handleNewsClick}
                 />
-              ))}
-            </>
-          )}
+              ))
+            )}
+          </NewsItemList>
         </div>
         <Dashboard>
           <button onClick={() => handlePage("diary")}>
@@ -264,6 +272,10 @@ const BgmList = styled.div`
       }
     }
   }
+`;
+
+const NewsItemList = styled.div`
+  height: 65px;
 `;
 
 export default MainBoard;
