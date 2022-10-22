@@ -10,6 +10,7 @@ import {
 } from "lib/graphql/queries/schema";
 import { useRouter } from "next/router";
 import Title from "components/atoms/Title";
+import Loading from "components/atoms/Loading";
 import GuestItem from "components/molecules/GuestItem";
 import GuestPost from "components/molecules/GuestPost";
 import Pagination from "components/molecules/Pagination";
@@ -23,7 +24,11 @@ const GuestWrapper = ({ query }: PageProps) => {
   const [detail, setDetail] = useState<string>("");
   const [createGuest] = useCreateGuestMutation();
 
-  const { data, refetch: refetchGuestsData } = useGetGuestsQuery({
+  const {
+    data,
+    loading: guestsDataLoading,
+    refetch: refetchGuestsData,
+  } = useGetGuestsQuery({
     variables: { page: Number(query.page) } as GetGuestsQueryVariables,
   }) as GetGuestsQueryResult;
 
@@ -88,20 +93,26 @@ const GuestWrapper = ({ query }: PageProps) => {
     <Contents>
       <Title>Guest</Title>
       <GuestItemList>
-        <GuestPost
-          detail={detail}
-          handleChange={handleChange}
-          onClick={handleCreateGuest}
-        />
-        {data?.fetchProducts?.map((item, index) => (
-          <GuestItem
-            key={index}
-            id={item._id!}
-            name={item.name ?? "익명"}
-            detail={item.detail ?? "내용없음"}
-            onClick={handleDeleteGuest}
-          />
-        ))}
+        {guestsDataLoading ? (
+          <Loading />
+        ) : (
+          <>
+            <GuestPost
+              detail={detail}
+              handleChange={handleChange}
+              onClick={handleCreateGuest}
+            />
+            {data?.fetchProducts?.map((item, index) => (
+              <GuestItem
+                key={index}
+                id={item._id!}
+                name={item.name ?? "이름없음"}
+                detail={item.detail ?? "내용없음"}
+                onClick={handleDeleteGuest}
+              />
+            ))}
+          </>
+        )}
       </GuestItemList>
       <Pagination
         page={Number(query.page)}
