@@ -12,14 +12,16 @@ interface Props {
 }
 
 const DiaryItem = ({ title, number, createdAt, onClick }: Props) => {
-  const { dateConvert } = useDate();
+  const { newDate, dateConvert } = useDate();
   const convertDate = dateConvert(createdAt);
+  const isNew = newDate(createdAt);
 
   return (
     <StyledDiaryItem>
       <ItemTitle>
         <FlexBox>
           <Chip type="date">{convertDate}</Chip>
+          {isNew && <Chip type="new">N</Chip>}
         </FlexBox>
         <FlexBox>
           <Text isBold={true}>제목 : {title}</Text>
@@ -54,6 +56,12 @@ const ItemTitle = styled.div`
 
 const FlexBox = styled.div`
   display: flex;
+  align-items: center;
+  div {
+    :first-child {
+      margin-right:2px;
+    }
+  }
 `;
 
 const LinkButton = styled.button`

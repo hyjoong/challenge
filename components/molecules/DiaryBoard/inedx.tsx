@@ -6,13 +6,14 @@ import {
   GetBoardQueryVariables,
   useGetBoardQuery,
 } from "lib/graphql/queries/schema";
+import useDate from "hooks/useDate";
+import Chip from "components/atoms/Chip";
 import Text from "components/atoms/Text";
 import { DiaryDetailProps } from "types";
-import useDate from "hooks/useDate";
 
 const DiaryBoard = ({ id }: DiaryDetailProps) => {
   const router = useRouter();
-  const { dateConvert } = useDate();
+  const { newDate, dateConvert } = useDate();
 
   const { data: boardData, refetch } = useGetBoardQuery({
     variables: {
@@ -25,9 +26,14 @@ const DiaryBoard = ({ id }: DiaryDetailProps) => {
     refetch();
   }, [router]);
 
+  const date = dateConvert(boardData?.fetchBoard?.createdAt, "DATETIME");
+  const isNew = newDate(boardData?.fetchBoard?.createdAt);
+
   return (
     <StyledDiaryPost>
-      <BoardDate>{dateConvert(boardData?.fetchBoard?.createdAt)}</BoardDate>
+      <BoardDate>
+        {date} {isNew && <Chip type="new">N</Chip>}
+      </BoardDate>
       <Text isBold={true}>{boardData?.fetchBoard?.title} </Text>
       <Text>작성자: {boardData?.fetchBoard?.writer}</Text>
       <Text>{boardData?.fetchBoard?.contents}</Text>
@@ -79,10 +85,16 @@ const StyledDiaryPost = styled.div`
 `;
 
 const BoardDate = styled.div`
+  display: flex;
+  align-items: center;
   padding: 6px 17px;
   font-size: 13px;
   color: ${({ theme }) => theme.color.darkGray};
   background-color: ${({ theme }) => theme.color.normalGray};
+
+  > div {
+    margin-left: 5px;
+  }
 `;
 
 export default DiaryBoard;
