@@ -27,7 +27,7 @@ const InfoItem = ({
       <Title>{name}: </Title>
       <Input
         name={name}
-        value={value}
+        value={value ?? ""}
         type={type}
         placeholder={placeholder}
         onChange={onChange}
