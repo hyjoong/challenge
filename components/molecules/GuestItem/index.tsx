@@ -72,10 +72,19 @@ const HeaderTitle = styled.div`
 const GuestContent = styled.div`
   display: flex;
   height: 60px;
-  padding: 13px 20px;
+  padding: 13px 0 13px 20px;
 
   > p {
     margin-left: 20px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    ::-webkit-scrollbar {
+      width: 3px;
+      background-color: #e9e9e9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #c5c2c2;
+    }
   }
   img {
     width: 70px;
