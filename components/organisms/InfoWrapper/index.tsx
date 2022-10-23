@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import Button from "components/atoms/Button";
-import Loading from "components/atoms/Loading";
-import InfoItem from "components/molecules/infoItem";
-import Contents from "../Contents";
-import { defaultWritter } from "constants/index";
 import {
   GetProfileQueryResult,
   GetProfileQueryVariables,
   useGetProfileQuery,
   useUpdateProfileMutation,
 } from "lib/graphql/queries/schema";
+import Title from "components/atoms/Title";
+import Divider from "components/atoms/Divider";
+import Button from "components/atoms/Button";
+import Loading from "components/atoms/Loading";
+import InfoItem from "components/molecules/infoItem";
+import Contents from "../Contents";
+import { defaultWritter } from "constants/index";
 
 const InfoWrapper = () => {
   const router = useRouter();
@@ -68,6 +70,8 @@ const InfoWrapper = () => {
 
   return (
     <Contents>
+      <Title>My Info</Title>
+      <Divider />
       {profileDataLoading ? (
         <Loading />
       ) : (

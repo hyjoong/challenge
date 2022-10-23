@@ -41,7 +41,7 @@ const StyledInfo = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin: 5px 0;
 
   > p {
     margin-right: 10px;
