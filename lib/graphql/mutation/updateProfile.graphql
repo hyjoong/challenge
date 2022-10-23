@@ -1,0 +1,14 @@
+mutation updateProfile(
+  $name: String
+  $age: Int
+  $school: String 
+) {
+  updateProfile(
+    name: $name
+    age: $age
+    school: $school
+  ) {
+    message
+    number
+  }
+}
