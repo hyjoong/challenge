@@ -4,14 +4,16 @@ import React from "react";
 import styled from "styled-components";
 
 interface Props {
+  title?: string;
   name: string;
-  text: string;
+  text: string | number;
 }
 
-const ContactItem = ({ name, text }: Props) => {
+const ContactItem = ({ title, name, text }: Props) => {
   return (
     <StyledContactItem>
       <Image name={name} />
+      <Text>{title} : </Text>
       <Text>{text}</Text>
     </StyledContactItem>
   );
@@ -22,7 +24,12 @@ const StyledContactItem = styled.div`
   margin: 4px 0;
 
   p {
-    margin: 0 10px;
+    :nth-child(2) {
+      margin: 0 4px;
+    }
+    :nth-child(3) {
+      margin-left: 2px;
+    }
   }
 `;
 

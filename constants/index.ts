@@ -49,6 +49,7 @@ export const tabList: TabType[] = [
   { title: "게임", path: "/game", value: "/game" },
   { title: "다이어리", path: "/diary?page=1", value: "/diary" },
   { title: "방명록", path: "/guest?page=1", value: "/guest" },
+  { title: "내정보", path: "/info", value: "/info" },
 ];
 
 export const defaultWritter: string = "김헨리";

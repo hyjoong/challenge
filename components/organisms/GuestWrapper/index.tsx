@@ -44,6 +44,7 @@ const GuestWrapper = ({ query }: PageProps) => {
   );
 
   const handleDeleteGuest = async (id: string) => {
+    confirm("방명록을 삭제하시겠습니까?");
     const res = await deleteGuest({
       variables: { productId: id },
     });

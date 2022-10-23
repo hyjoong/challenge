@@ -53,6 +53,10 @@ const GuestHeader = styled.div`
   height: 18px;
   padding: 0 20px;
   background-color: ${({ theme }) => theme.color.normalGray};
+
+  button {
+    color: ${({ theme }) => theme.color.darkGray};
+  }
 `;
 
 const HeaderTitle = styled.div`
@@ -71,8 +75,8 @@ const HeaderTitle = styled.div`
 
 const GuestContent = styled.div`
   display: flex;
-  height: 60px;
-  padding: 13px 0 13px 20px;
+  height: 70px;
+  padding: 10px 0 0 20px;
 
   > p {
     margin-left: 20px;
@@ -88,6 +92,7 @@ const GuestContent = styled.div`
   }
   img {
     width: 70px;
+    padding-bottom: 10px;
   }
 `;
 
