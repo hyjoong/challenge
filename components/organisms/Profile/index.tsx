@@ -20,7 +20,9 @@ const Profile = () => {
   }) as GetProfileQueryResult;
 
   useEffect(() => {
-    refetch();
+    if (router.pathname === "/info") {
+      refetch();
+    }
   }, [router]);
 
   return (
