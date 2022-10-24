@@ -54,7 +54,7 @@ const GuestWrapper = ({ query }: PageProps) => {
       alert("방명록 삭제에 실패하였습니다.");
       return;
     }
-    alert("방명록 성공에 성공하였습니다.");
+    alert("방명록 삭제에 성공하였습니다.");
     router.push(`/guest?page=${query.page}`);
     return;
   };
@@ -75,6 +75,7 @@ const GuestWrapper = ({ query }: PageProps) => {
     }
 
     alert("방명록 등록에 성공하였습니다");
+    setName("");
     setDetail("");
     router.push(`/guest?page=1`);
   };

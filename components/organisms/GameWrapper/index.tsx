@@ -22,9 +22,19 @@ const GameWrapper = () => {
     setWordInput(value);
   };
 
+  const regexWord = (wordInput: string) => {
+    let pattern = /([^가-힣\x20])/i;
+    return pattern.test(wordInput);
+  };
+
   const handleSearch = () => {
     if (wordInput.length === 1) {
-      alert("2글자 이상 입력해 주세요");
+      setResult("2글자 이상 입력해 주세요");
+      return;
+    }
+    if (regexWord(wordInput)) {
+      setResult("단어형식으로 입력해 주세요!");
+      setWordInput("");
       return;
     }
     if (word[word.length - 1] === wordInput[0]) {

@@ -32,6 +32,7 @@ const InfoItem = ({
         placeholder={placeholder}
         onChange={onChange}
         readOnly={readOnly}
+        maxLength={10}
       />
     </StyledInfo>
   );
