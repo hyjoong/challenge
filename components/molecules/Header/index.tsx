@@ -1,16 +1,36 @@
-import React from "react";
+import React, { useLayoutEffect, useState } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import Text from "components/atoms/Text";
 import Title from "components/atoms/Title";
 
 const Header = () => {
+  const [today, setToday] = useState<number>(0);
+  const [total, setTotal] = useState<number>(0);
+  const router: any = useRouter();
+
+  useLayoutEffect(() => {
+    const beforeToday = sessionStorage.getItem("today");
+    if (
+      router.pathname === "/" &&
+      Object.keys(router.components).length === 2
+    ) {
+      sessionStorage.setItem("today", String(Number(beforeToday) + 1));
+      sessionStorage.setItem("total", String(Number(beforeToday) + 10001));
+      setToday(Number(sessionStorage.getItem("today")));
+      setTotal(Number(sessionStorage.getItem("total")));
+    } else {
+      setToday(Number(sessionStorage.getItem("today")));
+      setTotal(Number(sessionStorage.getItem("total")));
+    }
+  }, []);
   return (
     <StyledHeader>
       <VisitorsCount>
         <Text>TODAY </Text>
-        <Text>0</Text>
+        <Text>{today}</Text>
         <Text> | </Text>
-        <Text>TOTAL 12345</Text>
+        <Text>TOTAL {total}</Text>
       </VisitorsCount>
       <MainHeader>
         <Title>사이좋은 사람들, 싸이월드</Title>
