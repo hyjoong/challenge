@@ -11,10 +11,7 @@ const Header = () => {
 
   useLayoutEffect(() => {
     const beforeToday = sessionStorage.getItem("today");
-    if (
-      router.pathname === "/" &&
-      Object.keys(router.components).length === 2
-    ) {
+    if (Object.keys(router.components).length === 2) {
       sessionStorage.setItem("today", String(Number(beforeToday) + 1));
       sessionStorage.setItem("total", String(Number(beforeToday) + 10001));
       setToday(Number(sessionStorage.getItem("today")));
