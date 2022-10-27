@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import Image from "next/image";
 import Button from "components/atoms/Button";
-import Image from "components/atoms/Image";
 import Text from "components/atoms/Text";
 import useDate from "hooks/useDate";
 import Chip from "components/atoms/Chip";
@@ -32,7 +32,12 @@ const GuestItem = ({ id, createdAt, name, detail, onClick }: Props) => {
         </Button>
       </GuestHeader>
       <GuestContent>
-        <Image name="profile" />
+        <Image
+          src={`/image/profile.png`}
+          width={80}
+          height={80}
+          alt="profile"
+        />
         <Text>{detail}</Text>
       </GuestContent>
     </StyledGuestItem>
@@ -89,10 +94,6 @@ const GuestContent = styled.div`
     ::-webkit-scrollbar-thumb {
       background-color: #c5c2c2;
     }
-  }
-  img {
-    width: 70px;
-    padding-bottom: 10px;
   }
 `;
 

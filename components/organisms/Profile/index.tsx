@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import {
   GetProfileQueryResult,
@@ -7,7 +8,6 @@ import {
   useGetProfileQuery,
 } from "lib/graphql/queries/schema";
 import Divider from "components/atoms/Divider";
-import Image from "components/atoms/Image";
 import Text from "components/atoms/Text";
 import ContactItem from "components/molecules/ContactItem";
 import SelectBox from "components/molecules/SelectBox";
@@ -28,7 +28,12 @@ const Profile = () => {
   return (
     <StyledProfile>
       <ProfileInfo>
-        <Image name="profile" />
+        <Image
+          src={`/image/profile.png`}
+          width={148}
+          height={127}
+          alt="profile"
+        />
         <Divider />
         {!profileData ? (
           <>

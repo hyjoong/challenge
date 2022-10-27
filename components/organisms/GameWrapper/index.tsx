@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Image from "next/image";
 import Title from "components/atoms/Title";
 import Text from "components/atoms/Text";
 import Divider from "components/atoms/Divider";
 import Contents from "../Contents";
-import Image from "components/atoms/Image";
 import SearchBox from "components/molecules/SearchBox";
 import GameBox from "components/molecules/GameBox";
 import Button from "components/atoms/Button";
@@ -77,7 +77,7 @@ const GameWrapper = () => {
       <Divider />
       <GameListBox>
         <GameBox>
-          <Image name="train" />
+          <Image src={`/image/train.png`} width={50} height={50} alt="train" />
           <Text isBold={true}>제시어: {word}</Text>
           <SearchBox
             onChange={handleword}
@@ -88,7 +88,7 @@ const GameWrapper = () => {
           <Text>{result}</Text>
         </GameBox>
         <GameBox>
-          <Image name="lotto" />
+          <Image src={`/image/lotto.png`} width={45} height={48} alt="lotto" />
           <Text>버튼을 누르세요.</Text>
           <LottoNumbers lottoNumbers={lottoList} />
           <Button onClick={handleMakeLottos}>추첨</Button>

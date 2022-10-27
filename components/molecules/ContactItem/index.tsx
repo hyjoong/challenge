@@ -1,7 +1,7 @@
-import Image from "components/atoms/Image";
-import Text from "components/atoms/Text";
 import React from "react";
 import styled from "styled-components";
+import Image from "next/image";
+import Text from "components/atoms/Text";
 
 interface Props {
   title?: string;
@@ -12,7 +12,12 @@ interface Props {
 const ContactItem = ({ title, name, text }: Props) => {
   return (
     <StyledContactItem>
-      <Image name={name} />
+      <Image
+        src={`/image/${name}.png`}
+        width={10}
+        height={10}
+        alt="ProfileIcon"
+      />
       <Text>{title} : </Text>
       <Text>{text}</Text>
     </StyledContactItem>

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "components/atoms/Button";
-import Image from "components/atoms/Image";
+import Image from "next/image";
 import Input from "components/atoms/Input";
 import TextArea from "components/atoms/TextArea";
 
@@ -18,7 +18,12 @@ const GuestPost = ({ onClick, name, detail, handleChange }: Props) => {
   return (
     <StyledGuestPost>
       <GuestPostMain>
-        <Image name="profile" />
+        <Image
+          src={`/image/profile.png`}
+          width={70}
+          height={60}
+          alt="profile"
+        />
         <TextArea
           placeholder="내용을 입력해 주세요"
           name="detail"

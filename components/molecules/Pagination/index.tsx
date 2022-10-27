@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "components/atoms/Button";
-import Image from "components/atoms/Image";
+import Image from "next/image";
 import Title from "components/atoms/Title";
 
 interface Props {
@@ -20,11 +20,21 @@ const Pagination = ({
   return (
     <StyledPagination>
       <Button styleType="arrow" disabled={page === 1} onClick={handlePrevPage}>
-        <Image name={page === 1 ? "arrowLeftDisabled" : "arrowLeft"} />
+        <Image
+          src={`/image/${page === 1 ? "arrowLeftDisabled" : "arrowLeft"}.png`}
+          width={10}
+          height={16}
+          alt="arrow"
+        />
       </Button>
       <Title>{page}</Title>
       <Button styleType="arrow" disabled={isEndPage} onClick={handleNextPage}>
-        <Image name={isEndPage ? "arrowRightDisabled" : "arrowRight"} />
+        <Image
+          src={`/image/${isEndPage ? "arrowRightDisabled" : "arrowRight"}.png`}
+          width={10}
+          height={16}
+          alt="arrow"
+        />
       </Button>
     </StyledPagination>
   );
