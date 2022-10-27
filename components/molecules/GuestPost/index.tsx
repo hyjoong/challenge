@@ -20,7 +20,7 @@ const GuestPost = ({ onClick, name, detail, handleChange }: Props) => {
       <GuestPostMain>
         <Image
           src={`/image/profile.png`}
-          width={70}
+          width={100}
           height={60}
           alt="profile"
         />
@@ -48,7 +48,7 @@ const GuestPost = ({ onClick, name, detail, handleChange }: Props) => {
 const StyledGuestPost = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 13px 40px 6px 20px;
+  padding: 10px 10px 5px;
   margin-right: 3px;
   background-color: ${({ theme }) => theme.color.softGray};
 `;
@@ -57,12 +57,8 @@ const GuestPostMain = styled.div`
   display: flex;
   height: 60px;
 
-  img {
-    width: 70px;
-  }
-
   > textarea {
-    margin-left: 30px;
+    margin-left: 5px;
     width: 100%;
     font-size: 12px;
 
@@ -78,7 +74,9 @@ const GuestSubmit = styled.div`
   margin-top: 5px;
 
   > input {
-    width: 55px;
+    width: 60px;
+    height: 10px;
+    font-size: 5px;
   }
 `;
 
