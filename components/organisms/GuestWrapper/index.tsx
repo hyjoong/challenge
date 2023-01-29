@@ -21,8 +21,8 @@ import { PageProps } from "types";
 
 const GuestWrapper = ({ query }: PageProps) => {
   const router = useRouter();
-  const [name, setName] = useState<string>("");
-  const [detail, setDetail] = useState<string>("");
+  const [name, setName] = useState("");
+  const [detail, setDetail] = useState("");
   const [createGuest] = useCreateGuestMutation();
 
   const {
@@ -44,19 +44,22 @@ const GuestWrapper = ({ query }: PageProps) => {
   );
 
   const handleDeleteGuest = async (id: string) => {
-    confirm("방명록을 삭제하시겠습니까?");
-    const res = await deleteGuest({
-      variables: { productId: id },
-    });
+    if (window.confirm("방명록을 삭제하시겠습니까?")) {
+      const res = await deleteGuest({
+        variables: { productId: id },
+      });
 
-    const { data } = res;
-    if (!data) {
-      alert("방명록 삭제에 실패하였습니다.");
+      const { data } = res;
+
+      if (!data) {
+        alert("방명록 삭제에 실패하였습니다.");
+        return;
+      }
+
+      alert("방명록 삭제에 성공하였습니다.");
+      router.push(`/guest?page=${query.page}`);
       return;
     }
-    alert("방명록 삭제에 성공하였습니다.");
-    router.push(`/guest?page=${query.page}`);
-    return;
   };
 
   const handleCreateGuest = async () => {
@@ -114,12 +117,12 @@ const GuestWrapper = ({ query }: PageProps) => {
               handleChange={handleChange}
               onClick={handleCreateGuest}
             />
-            {data?.fetchProducts?.map((item, index) => (
+            {data.fetchProducts.map((item) => (
               <GuestItem
-                key={index}
-                id={item._id!}
+                key={item._id}
+                id={item._id}
                 createdAt={item.createdAt}
-                name={isEmptyName(item.name!) ?? "이름없음"}
+                name={isEmptyName(item.name) ?? "이름없음"}
                 detail={item.detail ?? "내용없음"}
                 onClick={handleDeleteGuest}
               />
