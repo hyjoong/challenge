@@ -1,11 +1,10 @@
 import React, { InputHTMLAttributes } from "react";
 import styled from "styled-components";
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  placeholder?: string;
-}
-const Input = ({ placeholder, ...props }: Props) => {
-  return <StyledInput placeholder={placeholder} {...props} />;
+interface Props extends InputHTMLAttributes<HTMLInputElement> {}
+
+const Input = ({ ...props }: Props) => {
+  return <StyledInput {...props} {...props} />;
 };
 
 const StyledInput = styled.input`
@@ -13,6 +12,16 @@ const StyledInput = styled.input`
   border: 1px solid ${({ theme }) => theme.color.lightGray};
   border-radius: 3px;
   outline: none;
+  color: #888888;
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+
+  &:not(:placeholder-shown) {
+    color: #6b7280;
+    border: 1px solid ${({ theme }) => theme.color.gray};
+  }
 `;
 
 export default Input;
