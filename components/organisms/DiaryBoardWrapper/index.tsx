@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useDeleteBoardMutation } from "lib/graphql/queries/schema";
@@ -13,27 +13,29 @@ const DiaryBoardContainer = ({ id }: DiaryDetailProps) => {
   const router = useRouter();
   const [deleteBoard] = useDeleteBoardMutation();
 
-  const handleEditBoard = () => {
+  const handleEditBoard = useCallback(() => {
     router.push(`/diary/${id}/edit`);
-  };
+  }, [router, id]);
 
-  const handleDeleteBoard = async () => {
-    const res = await deleteBoard({
-      variables: { number: Number(id) },
-    });
+  const handleDeleteBoard = useCallback(async () => {
+    if (window.confirm("방명록을 삭제하시겠습니까?")) {
+      const res = await deleteBoard({
+        variables: { number: Number(id) },
+      });
 
-    const { data } = res;
-    if (!data) {
-      alert("데이터 삭제에 실패하였습니다.");
-      return;
+      const { data } = res;
+      if (!data) {
+        alert("게시글 삭제에 실패하였습니다.");
+        return;
+      }
+      alert(data.deleteBoard?.message);
+      router.push(`/diary?page=1`);
     }
-    alert(data.deleteBoard?.message);
-    router.push(`/diary?page=1`);
-  };
+  }, [deleteBoard, id, router]);
 
-  const handleDiaryList = () => {
+  const handleDiaryList = useCallback(() => {
     router.push(`/diary?page=1`);
-  };
+  }, [router]);
 
   return (
     <Contents>

@@ -17,6 +17,7 @@ import Contents from "../Contents/index";
 import Pagination from "components/molecules/Pagination";
 import usePagination from "hooks/usePagination";
 import { PageProps } from "types";
+import { useCallback } from "react";
 
 const DiaryList = ({ query }: PageProps) => {
   const router = useRouter();
@@ -31,17 +32,20 @@ const DiaryList = ({ query }: PageProps) => {
   const { data: diarysCount, refetch: refetchDiarysCount } =
     useGetBoardsCountQuery();
 
-  const handleCreateDiary = () => {
+  const handleCreateDiary = useCallback(() => {
     router.push(`/diary/new`);
-  };
+  }, [router]);
 
-  const handleDiaryClick = (id: number | null) => {
-    if (!id) {
-      alert("There is no id value in the diary");
-      return;
-    }
-    router.push(`/diary/${id}`);
-  };
+  const handleDiaryClick = useCallback(
+    (id: number | null) => {
+      if (!id) {
+        alert("There is no id value in the diary");
+        return;
+      }
+      router.push(`/diary/${id}`);
+    },
+    [router]
+  );
 
   const [page, isEndPage, handlePrevPage, handleNextPage] = usePagination(
     Number(query.page),

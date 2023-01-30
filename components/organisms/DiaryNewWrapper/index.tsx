@@ -7,8 +7,8 @@ import Button from "components/atoms/Button";
 import Loading from "components/atoms/Loading";
 import DiaryPostBoard from "components/molecules/DiaryPostBoard";
 import Contents from "../Contents";
-import { defaultWritter } from "constants/index";
 import useFetchingInput from "hooks/useFetchingInput";
+import { useCallback } from "react";
 
 interface Props {
   useLazyQuery: Function;
@@ -28,23 +28,24 @@ const DiaryNewWrapper = ({
   // 수정하기 or 게시글 등록 mutation
   const [mutationQuery] = useLazyQuery();
 
-  const [title, setTitle] = useState<string>("");
-  const [contents, setContents] = useState<string>("");
+  const [title, setTitle] = useState("");
+  const [contents, setContents] = useState("");
   const router = useRouter();
 
   const { setFetchingOption } = useFetchingInput();
   const option = setFetchingOption({ id, title, contents });
 
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { value, name } = event.target;
-    if (name === "title") {
-      setTitle(value);
-    } else {
-      setContents(value);
-    }
-  };
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { value, name } = event.target;
+      if (name === "title") {
+        setTitle(value);
+      } else {
+        setContents(value);
+      }
+    },
+    [setTitle, setContents]
+  );
 
   const handleApply = async () => {
     if (title === "") {
@@ -72,9 +73,9 @@ const DiaryNewWrapper = ({
 
     router.push(`/diary/${resNumber}`);
   };
-  const handleCancel = () => {
+  const handleCancel = useCallback(() => {
     router.back();
-  };
+  }, [router]);
 
   useEffect(() => {
     if (editTitle || editContents) {
