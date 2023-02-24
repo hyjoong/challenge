@@ -216,6 +216,7 @@ const Dashboard = styled.div`
       display: flex;
       align-items: center;
       height: 18px;
+      white-space: nowrap;
       &:hover {
         &:nth-child(1) {
           text-decoration: underline;
