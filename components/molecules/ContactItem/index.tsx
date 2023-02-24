@@ -4,7 +4,7 @@ import Image from "next/image";
 import Text from "components/atoms/Text";
 
 interface Props {
-  title?: string;
+  title: string;
   name: string;
   text: string | number;
 }

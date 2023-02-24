@@ -1,10 +1,10 @@
-import { BgmType, DashboardType, ContactType, TabType } from "types/index";
+import { BgmType, DashboardType, TabType } from "types/index";
 
-export const contactList: ContactType[] = [
-  { name: "face", text: "이름" },
-  { name: "phone", text: "Phone" },
-  { name: "mail", text: "E-mail" },
-  { name: "star", text: "인스타그램" },
+export const contactList = [
+  { title: "face", name: "face", text: "이름" },
+  { title: "phone", name: "phone", text: "Phone" },
+  { title: "mail", name: "mail", text: "E-mail" },
+  { title: "star", name: "star", text: "인스타그램" },
 ];
 
 export const emotionList: string[] = ["기쁨 😍", "우울 😂", "졸림 😴"];

@@ -38,7 +38,12 @@ const Profile = () => {
         {!profileData ? (
           <>
             {contactList?.map((item, index) => (
-              <ContactItem name={item.name} text={item.text} key={index} />
+              <ContactItem
+                key={item.name}
+                title={item.title}
+                name={item.name}
+                text={item.text}
+              />
             ))}
           </>
         ) : (
@@ -46,17 +51,17 @@ const Profile = () => {
             <ContactItem
               title="이름"
               name="face"
-              text={profileData?.fetchProfile?.name!}
+              text={profileData?.fetchProfile?.name ?? "이름 없음"}
             />
             <ContactItem
               title="나이"
               name="phone"
-              text={profileData?.fetchProfile?.age!}
+              text={profileData?.fetchProfile?.age ?? "나이 없음"}
             />
             <ContactItem
               title="학교"
               name="star"
-              text={profileData?.fetchProfile?.school!}
+              text={profileData?.fetchProfile?.school ?? "학교 없음"}
             />
           </>
         )}
