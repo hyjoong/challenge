@@ -17,24 +17,33 @@ import Pagination from "components/molecules/Pagination";
 import { defaultWritter } from "constants/index";
 import Contents from "../Contents";
 import usePagination from "hooks/usePagination";
-import { PageProps } from "types";
+import { GuestListProps } from "types";
 
-const GuestWrapper = ({ query }: PageProps) => {
+const GuestWrapper = ({
+  initialGuestData,
+  initialGuestCount,
+}: GuestListProps) => {
   const router = useRouter();
   const [name, setName] = useState("");
   const [detail, setDetail] = useState("");
   const [createGuest] = useCreateGuestMutation();
+  const { query } = router;
 
   const {
-    data,
+    data: guestDataRefetched,
     loading: guestsDataLoading,
     refetch: refetchGuestsData,
   } = useGetGuestsQuery({
-    variables: { page: Number(query.page) } as GetGuestsQueryVariables,
+    variables: {
+      page: Number(query.page),
+      initialData: initialGuestData,
+    } as GetGuestsQueryVariables,
   }) as GetGuestsQueryResult;
 
   const { data: guestsCount, refetch: refetchGuestsCount } =
-    useGetGuestsCountQuery();
+    useGetGuestsCountQuery({
+      skip: !!initialGuestCount,
+    });
 
   const [deleteGuest] = useDeleteGuestMutation();
 
@@ -93,11 +102,6 @@ const GuestWrapper = ({ query }: PageProps) => {
       setDetail(value);
     }
   };
-
-  const isEmptyName = (name: string) => {
-    return name === "" ? "익명" : name;
-  };
-
   useEffect(() => {
     refetchGuestsData();
     refetchGuestsCount();
@@ -117,12 +121,12 @@ const GuestWrapper = ({ query }: PageProps) => {
               handleChange={handleChange}
               onClick={handleCreateGuest}
             />
-            {data.fetchProducts.map((item) => (
+            {guestDataRefetched?.fetchProducts?.map((item) => (
               <GuestItem
                 key={item._id}
-                id={item._id}
+                id={item._id ?? ""}
                 createdAt={item.createdAt}
-                name={isEmptyName(item.name) ?? "이름없음"}
+                name={item.name ?? "익명"}
                 detail={item.detail ?? "내용없음"}
                 onClick={handleDeleteGuest}
               />

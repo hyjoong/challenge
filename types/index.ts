@@ -1,3 +1,4 @@
+import { GetGuestsQueryResult } from "./../lib/graphql/queries/schema";
 import { GetDiarysQueryResult } from "lib/graphql/queries/schema";
 import { NextParsedUrlQuery } from "next/dist/server/request-meta";
 
@@ -37,4 +38,9 @@ export interface PageProps {
 export interface DiaryListProps {
   initialDiarysData?: GetDiarysQueryResult;
   initialDiaryCount?: number;
+}
+
+export interface GuestListProps {
+  initialGuestData?: GetGuestsQueryResult;
+  initialGuestCount?: number;
 }
