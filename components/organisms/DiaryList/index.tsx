@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import {
   GetDiarysQueryResult,
@@ -16,21 +16,30 @@ import DiaryItem from "components/molecules/DiaryItem";
 import Contents from "../Contents/index";
 import Pagination from "components/molecules/Pagination";
 import usePagination from "hooks/usePagination";
-import { PageProps } from "types";
 import { useCallback } from "react";
+import { DiaryListProps } from "types";
 
-const DiaryList = ({ query }: PageProps) => {
+const DiaryList = ({
+  initialDiarysData,
+  initialDiaryCount,
+}: DiaryListProps) => {
   const router = useRouter();
+  const { query } = router;
   const {
-    data: diarysData,
+    data: diarysDataRefetched,
     loading: diarysDataLoading,
     refetch: refetchDiarysData,
   } = useGetDiarysQuery({
-    variables: { input: Number(query.page) } as GetDiarysQueryVariables,
+    variables: {
+      input: Number(query.page),
+      initialData: initialDiarysData,
+    } as GetDiarysQueryVariables,
   }) as GetDiarysQueryResult;
 
-  const { data: diarysCount, refetch: refetchDiarysCount } =
-    useGetBoardsCountQuery();
+  const { data: diarysCountRefetched, refetch: refetchDiarysCount } =
+    useGetBoardsCountQuery({
+      skip: !!initialDiaryCount,
+    });
 
   const handleCreateDiary = useCallback(() => {
     router.push(`/diary/new`);
@@ -49,7 +58,7 @@ const DiaryList = ({ query }: PageProps) => {
 
   const [page, isEndPage, handlePrevPage, handleNextPage] = usePagination(
     Number(query.page),
-    diarysCount?.fetchBoardsCount ?? 0
+    diarysCountRefetched?.fetchBoardsCount ?? 0
   );
 
   useEffect(() => {
@@ -73,7 +82,7 @@ const DiaryList = ({ query }: PageProps) => {
             <Loading />
           ) : (
             <>
-              {diarysData?.fetchBoards?.map((item, index) => (
+              {diarysDataRefetched?.fetchBoards?.map((item, index) => (
                 <DiaryItem
                   key={index}
                   title={item.title ?? ""}

@@ -1,3 +1,4 @@
+import { GetDiarysQueryResult } from "lib/graphql/queries/schema";
 import { NextParsedUrlQuery } from "next/dist/server/request-meta";
 
 export interface DiaryDetailProps {
@@ -31,4 +32,9 @@ export interface DiaryType {
 }
 export interface PageProps {
   query: NextParsedUrlQuery;
+}
+
+export interface DiaryListProps {
+  initialDiarysData?: GetDiarysQueryResult;
+  initialDiaryCount?: number;
 }
